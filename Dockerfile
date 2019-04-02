@@ -1,22 +1,16 @@
-#
-# Docker NodeJS Typescript Starter
-# Example Dockerfile
-#
 FROM node:10.9.0
 
-# Create App dir
+# Create app directory
 RUN mkdir -p /app
-
-# Set working directory to App dir
 WORKDIR /app
 
-# Copy project files
-COPY . /app
-
-# Create environment file
-RUN cp .env.example .env
+# Copy application to container
+COPY . .
+COPY .env.example .env
 
 # Install dependencies
 RUN yarn install
 
-ENTRYPOINT yarn dev
+# Expose runnning port
+EXPOSE 3000
+

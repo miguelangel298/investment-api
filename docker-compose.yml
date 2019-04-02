@@ -7,28 +7,24 @@
 # https://docs.docker.com/compose/compose-file/
 
 # Docker compose file version
-version: "3.6"
-
+version: "3"
 services:
   # Web App #
   web:
-    image: web:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
-    working_dir: /app
-    env_file:
-      - .env
+    build: .
+    entrypoint: yarn dev
+    restart: always
+    volumes:
+      - .:/app
     ports:
       - "3000:3000"
     expose:
       - "3000"
     depends_on:
       - postgres
-    volumes:
-      - .:/app
-    command: yarn watch-ts
-  
+    env_file:
+      - .env
+
   # DB
   postgres:
     image: postgres:11.1-alpine
