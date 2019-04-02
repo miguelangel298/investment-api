@@ -1,6 +1,6 @@
 import ExampleDTO from '../../domain/DTOs/ExampleDTO';
-import { GetExampleByIdQuery } from '../queries/GetExampleByIdQuery';
-import { UpdateExampleCommand } from '../command/UpdateExampleCommand';
+import { GetExampleByIdQuery } from '../../domain/queries/GetExampleByIdQuery';
+import { UpdateExampleCommand } from '../../domain/command/UpdateExampleCommand';
 import CommandModule from '../../application/modules/CommandModule';
 import QueryModule  from '../../application/modules/QueryModule';
 

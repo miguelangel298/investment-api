@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import ExampleController from '../../domain/controllers/ExampleController';
+import ExampleController from '../../presentation/controllers/ExampleController';
 import BaseRouter from './base/BaseRouter';
 import ResponseHandler from '../util/ResponseHandler';
 import { httpCodes } from '../config/ErrorCode';

@@ -5,7 +5,7 @@ import ResponseHandler from './util/ResponseHandler';
 import Application from './Application';
 import { NextFunction } from 'connect';
 import { httpCodes } from './config/ErrorCode';
-import ExampleController from '../domain/controllers/ExampleController';
+import ExampleController from '../presentation/controllers/ExampleController';
 import ExampleRouter from './routes/ExampleRouter';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
