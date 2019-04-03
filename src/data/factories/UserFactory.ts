@@ -13,9 +13,9 @@ define(UserEntity, async (faker: Faker.FakerStatic, factory: FactoryStatic):
   Promise<UserEntity> => {
   const user = new UserEntity();
   user.username = data.username;
-  user.password = data.password;
   user.createdAt = new Date();
   user.userStatus = await factory.get(UserStatusEntity).create();
   user.person = await factory.get(PersonEntity).create();
+  await user.setPassword(data.password);
   return user;
 });
