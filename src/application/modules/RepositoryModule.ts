@@ -1,13 +1,14 @@
 import ExampleRepository from '../../data/repository/ExampleRepository';
 import UserRepository from '../../data/repository/UserRepository/UserRepository';
+import { getCustomRepository } from 'typeorm';
 
 export default class RepositoryModule {
 
   static getExampleRepository(): ExampleRepository {
-    return new ExampleRepository();
+    return getCustomRepository(ExampleRepository);
   }
 
   static userRepository(): UserRepository {
-    return new UserRepository();
+    return getCustomRepository(UserRepository);
   }
 }

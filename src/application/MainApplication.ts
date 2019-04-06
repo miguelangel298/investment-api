@@ -10,6 +10,7 @@ import ExampleRouter from './routes/ExampleRouter';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import UserController from '../presentation/controllers/UserController';
 import UserRouter from './routes/UserRouter';
+import UserRepository from '../data/repository/UserRepository/UserRepository';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -29,9 +30,12 @@ export default class MainApplication extends Application {
 
   createApp() {
 
+    // Repositories
+    const userRepository = new UserRepository();
+
     // Controllers
     const exampleController = new ExampleController();
-    const userController = new UserController();
+    const userController = new UserController(userRepository);
 
     // Create routers
     this.router.get('/', this.homePage());
