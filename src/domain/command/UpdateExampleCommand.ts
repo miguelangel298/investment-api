@@ -10,6 +10,6 @@ export class UpdateExampleCommandHandler {
 
   async handle(query: UpdateExampleCommand): Promise<void> {
     console.log(`updating the article by: ${query.id}, new name: ${query.name}`);
-    await this.exampleRepository.update(query.id, { name });
+    await this.exampleRepository.update(query.id, { name: query.name });
   }
 }

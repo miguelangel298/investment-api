@@ -1,5 +1,5 @@
 import express, { RequestHandler, Response, Request } from 'express';
-import { Connection } from 'typeorm';
+import { Connection, getCustomRepository } from 'typeorm';
 import DatabaseConnection from '../data/DatabaseConnection';
 import ResponseHandler from './util/ResponseHandler';
 import Application from './Application';
@@ -8,6 +8,9 @@ import { httpCodes } from './config/ErrorCode';
 import ExampleController from '../presentation/controllers/ExampleController';
 import ExampleRouter from './routes/ExampleRouter';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import UserController from '../presentation/controllers/UserController';
+import UserRouter from './routes/UserRouter';
+import UserRepository from '../data/repository/UserRepository/UserRepository';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -26,10 +29,18 @@ export default class MainApplication extends Application {
   }
 
   createApp() {
+
+    // Repositories
+    const userRepository = getCustomRepository(UserRepository);
+
+    // Controllers
     const exampleController = new ExampleController();
+    const userController = new UserController(userRepository);
+
     // Create routers
     this.router.get('/', this.homePage());
-    this.addRouter(new ExampleRouter('/users', exampleController));
+    this.addRouter(new ExampleRouter('/examples', exampleController));
+    this.addRouter(new UserRouter('/users', userController));
     this.router.use(this.notFound());
   }
 
