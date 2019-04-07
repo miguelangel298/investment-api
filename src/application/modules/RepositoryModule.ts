@@ -1,6 +1,6 @@
 import UserRepository from '../../data/repository/UserRepository/UserRepository';
 import { getCustomRepository } from 'typeorm';
-import GroupRepository from '../../data/repository/GroupRepository';
+import GroupRepository from '../../data/repository/GroupRepository/GroupRepository';
 
 export default class RepositoryModule {
 

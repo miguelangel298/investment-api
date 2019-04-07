@@ -1,5 +1,5 @@
 import { ICommand, ICommandHandler } from './base/ICommand';
-import GroupRepository from '../../data/repository/GroupRepository';
+import GroupRepository from '../../data/repository/GroupRepository/GroupRepository';
 import GroupEntity from '../../data/entities/GroupEntity';
 import UserEntity from '../../data/entities/UserEntity';
 

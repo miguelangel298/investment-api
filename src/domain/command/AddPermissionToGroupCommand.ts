@@ -1,5 +1,5 @@
 import { ICommand, ICommandHandler } from './base/ICommand';
-import PermissionGroupRepository from '../../data/repository/PermissionGroupRepository';
+import PermissionGroupRepository from '../../data/repository/PermissionGroupRepository/PermissionGroupRepository';
 import GroupEntity from '../../data/entities/GroupEntity';
 import PermissionGroupEntity from '../../data/entities/PermissionGroupEntity';
 import PermissionEntity from '../../data/entities/PermissionEntity';

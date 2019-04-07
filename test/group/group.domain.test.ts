@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import DatabaseConnection from '../../src/data/DatabaseConnection';
-import GroupRepository from '../../src/data/repository/GroupRepository';
+import GroupRepository from '../../src/data/repository/GroupRepository/GroupRepository';
 import { getCustomRepository } from 'typeorm';
 import { CreateGroupCommand,
   CreateGroupCommandHandler } from '../../src/domain/command/CreateGroupCommand';
