@@ -38,25 +38,15 @@ export class permissionGroup1548122220116 implements MigrationInterface {
           isNullable: false,
         },
         {
-          name: 'create_by',
+          name: 'created_by',
           type: 'int',
           isNullable: false,
         },
         {
-          name: 'creation_date',
+          name: 'created_at',
           type: 'timestamp',
           isNullable: false,
-        },
-        {
-          name: 'modified_by',
-          type: 'int',
-          isNullable: true,
-        },
-        {
-          name: 'modification_date',
-          type: 'timestamp',
-          isNullable: true,
-        },
+        }
       ],
     });
 

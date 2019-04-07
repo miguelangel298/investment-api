@@ -14,8 +14,11 @@ export default class PermissionDTO {
     this.name = permissionEntity.name;
     this.description = permissionEntity.description;
     this.code = permissionEntity.code;
-    this.permissionGroups =
-      permissionEntity.permissionGroups.map(permission => new PermissionGroupDTO(permission));
+
+    if (permissionEntity.permissionGroups) {
+      this.permissionGroups =
+        permissionEntity.permissionGroups.map(permission => new PermissionGroupDTO(permission));
+    }
 
   }
 }
