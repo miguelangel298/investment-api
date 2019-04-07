@@ -14,7 +14,7 @@ export default class UserDTO {
   createdAt: Date;
   updatedBy: UserDTO;
   updatedAt: Date;
-  userPermissionGroups: UserPermissionGroupDTO[];
+  userPermissionGroups: UserPermissionGroupDTO;
 
   constructor(userEntity: UserEntity) {
     this.id = userEntity.id;
@@ -36,9 +36,10 @@ export default class UserDTO {
       this.role = new RoleDTO(userEntity.role);
     }
     this.updatedAt = userEntity.updatedAt;
+
     if (userEntity.userPermissionGroups) {
-      this.userPermissionGroups = userEntity.userPermissionGroups.map(userPermission =>
-        new UserPermissionGroupDTO(userPermission));
+      this.userPermissionGroups =
+        new UserPermissionGroupDTO(userEntity.userPermissionGroups);
     }
   }
 }

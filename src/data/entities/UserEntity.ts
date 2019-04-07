@@ -5,8 +5,8 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  OneToMany,
-  } from 'typeorm';
+  OneToMany, OneToOne,
+} from 'typeorm';
 import bcrypt from 'bcrypt-nodejs';
 import UserStatusEntity from './UserStatusEntity';
 import PersonEntity from './PersonEntity';
@@ -51,8 +51,8 @@ export default class UserEntity {
   @CreateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-  @OneToMany(() => UserPermissionGroupEntity, userPermissionGroups => userPermissionGroups.user)
-    userPermissionGroups: UserPermissionGroupEntity[];
+  @OneToOne(() => UserPermissionGroupEntity, userPermissionGroups => userPermissionGroups.user)
+    userPermissionGroups: UserPermissionGroupEntity;
 
   setPassword(password: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {

@@ -19,13 +19,18 @@ export default class GroupDTO {
     this.id = groupEntity.id;
     this.name = groupEntity.name;
     this.description = groupEntity.description;
-    this.createdBy = new UserDTO(groupEntity.createdBy);
     this.createdAt = groupEntity.createdAt;
+    this.updatedAt = groupEntity.updatedAt;
+
+    if (groupEntity.createdBy) {
+      this.createdBy = new UserDTO(groupEntity.createdBy);
+    }
     if (groupEntity.updatedBy) {
       this.updatedBy = groupEntity.updatedBy;
     }
-    this.updatedAt = groupEntity.updatedAt;
-    this.permissionGroups =
-      groupEntity.permissionGroups.map(permission => new PermissionGroupDTO(permission));
+    if (groupEntity.permissionGroups) {
+      this.permissionGroups =
+        groupEntity.permissionGroups.map(permission => new PermissionGroupDTO(permission));
+    }
   }
 }

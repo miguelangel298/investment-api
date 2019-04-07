@@ -10,7 +10,11 @@ export default  class  PermissionGroupDTO {
 
   constructor(permissionGroupEntity: PermissionGroupEntity) {
     this.id = permissionGroupEntity.id;
-    this.group = new GroupDTO(permissionGroupEntity.group);
-    this.permission = new PermissionDTO(permissionGroupEntity.permission);
+    if (permissionGroupEntity.group) {
+      this.group = new GroupDTO(permissionGroupEntity.group);
+    }
+    if (permissionGroupEntity.permission) {
+      this.permission = new PermissionDTO(permissionGroupEntity.permission);
+    }
   }
 }

@@ -3,6 +3,7 @@ import ResponseHandler from '../util/ResponseHandler';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import UserController from '../../presentation/controllers/UserController';
 import { httpCodes } from '../config/ErrorCode';
+import GetUserLoginQuery from '../../domain/queries/GetUserLoginQuery';
 
 export default class UserRouter extends BaseRouter {
   constructor(route: string, protected userController: UserController) {
@@ -16,7 +17,10 @@ export default class UserRouter extends BaseRouter {
 
   show(): RequestHandler {
     return(req: Request, res: Response, next: NextFunction) => {
-      this.userController.show(req.params.username)
+      const query: GetUserLoginQuery = {
+        username: req.params.username,
+      };
+      this.userController.show(query)
         .then(response => ResponseHandler.sendResponse(res, httpCodes.OK, 'users', response))
         .catch(err => ResponseHandler.sendError(res, err));
     };
