@@ -8,7 +8,7 @@ export default interface GetUserLoginQuery extends IQuery {
 }
 
 export class GetUserLoginQueryHandler implements IQueryHandler<UserDTO> {
-  constructor(protected userRepository: UserRepository) {}
+  constructor(protected userRepository: IUserRepository) {}
 
   async handle(query: GetUserLoginQuery): Promise<UserDTO> {
     const user = await this.userRepository.getOneByQuery({ username: query.username });

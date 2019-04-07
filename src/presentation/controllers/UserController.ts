@@ -2,10 +2,10 @@ import UserDTO from '../../domain/DTOs/UserDTO';
 import { buildRawError } from '../../application/config/ErrorCode';
 import GetUserLoginQuery,
 { GetUserLoginQueryHandler } from '../../domain/queries/GetUserLoginQuery';
-import UserRepository from '../../data/repository/UserRepository/UserRepository';
+import IUserRepository from '../../data/repository/UserRepository/IUserRepository';
 
 export default class UserController {
-  constructor(protected userRepository: UserRepository) {}
+  constructor(protected userRepository: IUserRepository) {}
 
   async show(query: GetUserLoginQuery): Promise<UserDTO> {
     try {

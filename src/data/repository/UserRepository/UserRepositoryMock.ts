@@ -15,4 +15,8 @@ export default class UserRepositoryMock implements IUserRepository {
     return UserRepositoryMock.entities[0];
   }
 
+  async getOneByQuery(query: Partial<UserEntity>): Promise<UserEntity> {
+    return UserRepositoryMock.entities[0];
+  }
+
 }
