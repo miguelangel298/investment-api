@@ -3,6 +3,7 @@ import UserEntity from '../entities/UserEntity';
 import { FactoryStatic } from './interfaces/Factory';
 import UserStatusEntity from '../entities/UserStatusEntity';
 import PersonEntity from '../entities/PersonEntity';
+import RoleEntity from '../entities/RoleEntity';
 
 const data = {
   username: 'admin',
@@ -16,6 +17,7 @@ define(UserEntity, async (faker: Faker.FakerStatic, factory: FactoryStatic):
   user.createdAt = new Date();
   user.userStatus = await factory.get(UserStatusEntity).create();
   user.person = await factory.get(PersonEntity).create();
+  user.role = await factory.get(RoleEntity).create();
   await user.setPassword(data.password);
   return user;
 });

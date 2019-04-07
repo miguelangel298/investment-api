@@ -11,7 +11,7 @@ export class GetUserLoginQueryHandler implements IQueryHandler<UserDTO> {
   constructor(protected userRepository: UserRepository) {}
 
   async handle(query: GetUserLoginQuery): Promise<UserDTO> {
-    const user = await this.userRepository.findOne(query);
+    const user = await this.userRepository.getOneByQuery({ username: query.username });
     return new UserDTO(user);
   }
 }

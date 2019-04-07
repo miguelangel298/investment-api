@@ -1,5 +1,5 @@
 import express, { RequestHandler, Response, Request } from 'express';
-import { Connection } from 'typeorm';
+import { Connection, getCustomRepository } from 'typeorm';
 import DatabaseConnection from '../data/DatabaseConnection';
 import ResponseHandler from './util/ResponseHandler';
 import Application from './Application';
@@ -31,7 +31,7 @@ export default class MainApplication extends Application {
   createApp() {
 
     // Repositories
-    const userRepository = new UserRepository();
+    const userRepository = getCustomRepository(UserRepository);
 
     // Controllers
     const exampleController = new ExampleController();

@@ -19,7 +19,7 @@ export class permissionGroup1548122220116 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<any> {
     const table: Table = new Table({
-      name: 'c',
+      name: 'permission_group',
       columns: [
         {
           name: 'id',

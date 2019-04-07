@@ -16,7 +16,6 @@ export default class UserRouter extends BaseRouter {
 
   show(): RequestHandler {
     return(req: Request, res: Response, next: NextFunction) => {
-      console.log(`This the params: ${req.params.username}`);
       this.userController.show(req.params.username)
         .then(response => ResponseHandler.sendResponse(res, httpCodes.OK, 'users', response))
         .catch(err => ResponseHandler.sendError(res, err));

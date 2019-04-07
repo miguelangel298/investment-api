@@ -11,6 +11,7 @@ import bcrypt from 'bcrypt-nodejs';
 import UserStatusEntity from './UserStatusEntity';
 import PersonEntity from './PersonEntity';
 import UserPermissionGroupEntity from './UserPermissionGroupEntity';
+import RoleEntity from './RoleEntity';
 
 @Entity('users')
 export default class UserEntity {
@@ -27,6 +28,10 @@ export default class UserEntity {
   @ManyToOne(() => UserStatusEntity)
     @JoinColumn({ name: 'user_status_id' })
     userStatus: UserStatusEntity;
+
+  @ManyToOne(() => RoleEntity)
+    @JoinColumn({ name: 'rol_id' })
+    role: RoleEntity;
 
   @ManyToOne(() => PersonEntity)
     @JoinColumn({ name: 'person_id' })

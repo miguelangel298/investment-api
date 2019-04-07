@@ -12,7 +12,7 @@ export default class DatabaseConnection {
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       entities: [`${__dirname}/entities/*{.ts,.js}`],
-      logging: ['error'],
+      logging: ['error', 'query'],
     });
   }
 

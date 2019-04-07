@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "lib": ["es2017"],
+//    "lib": ["es2017"],
     "target": "es6",
     "experimentalDecorators": true,
     "allowJs": true,
@@ -10,9 +10,13 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": "src",
+    "baseUrl": "src/",
     "emitDecoratorMetadata": true,
     "strict": false,
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "paths": {
       "*": [
         "node_modules/*"

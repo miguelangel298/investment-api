@@ -28,8 +28,12 @@ export default class PersonDTO {
     this.birthDate = personEntity.birthDate;
     this.cardId = personEntity.cardId;
     this.passport = personEntity.passport;
-    this.gender = new GenderDTO(personEntity.gender);
-    this.nationality = new NationalityDTO(personEntity.nationality);
+    if (personEntity.gender) {
+      this.gender = new GenderDTO(personEntity.gender);
+    }
+    if (personEntity.nationality) {
+      this.nationality = new NationalityDTO(personEntity.nationality);
+    }
     if (personEntity.createdBy) {
       this.createdBy = new UserDTO(personEntity.createdBy);
     }
