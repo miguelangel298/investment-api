@@ -1,4 +1,4 @@
-import { Repository, EntityRepository } from 'typeorm';
+import { Repository, EntityRepository, FindConditions, FindOneOptions } from 'typeorm';
 import UserEntity from '../../entities/UserEntity';
 import IUserRepository from './IUserRepository';
 

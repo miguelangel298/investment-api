@@ -8,6 +8,7 @@ import { httpCodes } from './config/ErrorCode';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import UserRouter from './routes/UserRouter';
 import ControllerModule from './modules/ControllerModule';
+import AuthRouter from './routes/AuthRouter';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -30,6 +31,7 @@ export default class MainApplication extends Application {
     // Create routers
     this.router.get('/', this.homePage());
     this.addRouter(new UserRouter('/users', ControllerModule.getUserController()));
+    this.addRouter(new AuthRouter('/login', ControllerModule.getAuthController()));
     this.router.use(this.notFound());
   }
 
