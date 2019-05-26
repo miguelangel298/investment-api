@@ -1,6 +1,7 @@
 import IUserRepository from './IUserRepository';
-import { FindConditions, FindOneOptions } from 'typeorm';
+import { FindConditions, FindOneOptions, InsertResult, SaveOptions } from 'typeorm';
 import UserEntity from '../../entities/UserEntity';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export default class UserRepositoryMock implements IUserRepository {
 
@@ -17,6 +18,11 @@ export default class UserRepositoryMock implements IUserRepository {
 
   async getOneByQuery(query: Partial<UserEntity>): Promise<UserEntity> {
     return UserRepositoryMock.entities[0];
+  }
+
+  async insert(entity: QueryDeepPartialEntity<UserEntity> | QueryDeepPartialEntity<UserEntity>[],
+               options?: SaveOptions): Promise<InsertResult> {
+    return undefined;
   }
 
 }

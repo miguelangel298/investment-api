@@ -5,6 +5,7 @@ import UserController from '../../presentation/controllers/UserController';
 import { buildError, httpCodes } from '../config/ErrorCode';
 import GetUserLoginQuery from '../../domain/queries/GetUserLoginQuery';
 import PayloadValidator from '../util/PayloadValidator';
+import CreateUserCommand from '../../domain/command/CreateUserCommand';
 
 export default class UserRouter extends BaseRouter {
   constructor(route: string, protected userController: UserController) {
@@ -13,6 +14,7 @@ export default class UserRouter extends BaseRouter {
   }
 
   addRoutes(): void {
+    this.router.post('/', this.create());
     this.router.get('/:username', this.show());
   }
 
@@ -27,6 +29,20 @@ export default class UserRouter extends BaseRouter {
         const responseError = buildError(httpCodes.BAD_REQUEST, errors);
         return ResponseHandler.sendError(res, responseError);
       }
+
+      const command: CreateUserCommand = {
+        username: req.body.username,
+        password: req.body.password,
+        person: req.body.person,
+        role: req.body.role,
+        userStatus: req.body.userStatus,
+        createdBy: req.body.createdBy,
+      };
+
+      this.userController.create(command)
+        .then(response => ResponseHandler.sendResponse(res,
+                                                       httpCodes.CREATED, 'users', response))
+        .catch(err => ResponseHandler.sendError(res, err));
     };
   }
 
