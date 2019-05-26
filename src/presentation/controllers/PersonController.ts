@@ -15,7 +15,7 @@ export default class PersonController {
         new CreatePersonCommandHandler(this.personRepository);
       await createPersonCommandHandler.handle(personCommand);
 
-      // we look for the person created and we return it
+      // We look for the person created and we return it
       const query: GetPersonByCardIdQuery = {
         cardID: personCommand.cardId,
       };
