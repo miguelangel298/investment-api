@@ -1,25 +1,32 @@
+import { Request } from 'express';
+
 type Validation = {
   message: string;
-  condition: boolean;
+  property: string;
 };
 
 export default class PayloadValidator {
 
-  validations: Validation[];
-
-  constructor() {
+  protected validations: Validation[];
+  protected req: Request;
+  constructor(req: Request) {
+    this.req = req;
     this.validations = [];
   }
 
-  validate(condition: boolean, message: string) {
-    this.validations.push({
-      message,
-      condition,
+  validate(params: String[]) {
+    this.validations = params.map((item) => {
+      return { property: item, message: `${item} is required` } as Validation;
     });
   }
 
   getErrors(): string[] {
-    const invalid: Validation[] = this.validations.filter(e => !e.condition);
-    return invalid.map(val => val.message);
+    /**
+     * The search is performed in the request with the parameters to validate
+     */
+    const invalidProperties: any[] = this.validations
+      .filter(e => !(this.req.body[e.property] || this.req.query[e.property]));
+    const messages = invalidProperties.map(prop => prop.message);
+    return messages.length && messages;
   }
 }
