@@ -1,6 +1,7 @@
 import UserController from '../../presentation/controllers/UserController';
 import RepositoryModule from './RepositoryModule';
 import AuthController from '../../presentation/controllers/AuthController';
+import PersonController from '../../presentation/controllers/PersonController';
 
 export default class ControllerModule {
 
@@ -10,5 +11,9 @@ export default class ControllerModule {
 
   static getAuthController(): AuthController {
     return new AuthController(RepositoryModule.userRepository());
+  }
+
+  static  getPersonController(): PersonController {
+    return new PersonController(RepositoryModule.personRepository());
   }
 }
