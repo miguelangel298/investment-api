@@ -11,7 +11,7 @@ export default class AuthRouter extends BaseRouter {
   }
 
   addRoutes(): void {
-    this.router.post('/', this.login());
+    this.router.post('/login', this.login());
   }
 
   login(): RequestHandler {
@@ -21,7 +21,7 @@ export default class AuthRouter extends BaseRouter {
         password: req.body.password,
       };
       this.authController.login(query)
-        .then(response => ResponseHandler.sendResponse(res, httpCodes.OK, 'users', response))
+        .then(response => ResponseHandler.sendResponse(res, httpCodes.OK, 'session', response))
         .catch(err => ResponseHandler.sendError(res, err));
     };
   }

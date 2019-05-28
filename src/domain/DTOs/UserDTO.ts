@@ -8,6 +8,7 @@ export default class UserDTO {
   id: number;
   username: string;
   userStatus: UserStatusDTO;
+  fullName?: string;
   person: PersonDTO;
   role: RoleDTO;
   createdBy: UserDTO;
@@ -24,6 +25,7 @@ export default class UserDTO {
     }
     if (userEntity.person) {
       this.person = new PersonDTO(userEntity.person);
+      this.fullName = `${this.person.names} ${this.person.firstSurname}`;
     }
     if (userEntity.createdBy) {
       this.createdBy = new UserDTO(userEntity.createdBy);
