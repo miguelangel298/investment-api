@@ -31,7 +31,7 @@ export default class MainApplication extends Application {
 
     // Create routers
     this.router.get('/', this.homePage());
-    this.addRouter(new AuthRouter('/login', ControllerModule.getAuthController()));
+    this.addRouter(new AuthRouter('/auth', ControllerModule.getAuthController()));
     this.addRouter(new UserRouter('/users', ControllerModule.getUserController()));
     this.addRouter(new PersonRouter('/persons', ControllerModule.getPersonController()));
     this.router.use(this.notFound());

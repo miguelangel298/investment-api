@@ -32,6 +32,7 @@
     "db:query": "./node_modules/.bin/typeorm query"
   },
   "dependencies": {
+    "@types/cors": "^2.8.5",
     "@types/faker": "^4.1.5",
     "@types/glob": "^7.1.1",
     "@types/jsonwebtoken": "^8.3.2",
@@ -39,6 +40,7 @@
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
+    "cors": "^2.8.5",
     "dotenv": "^4.0.0",
     "errorhandler": "^1.5.0",
     "eslint": "^5.11.1",
