@@ -1,6 +1,18 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 export class companies1560390313074 implements MigrationInterface {
+
+  private tableBankForeignKey = new TableForeignKey({
+    columnNames: ['bank_id'],
+    referencedColumnNames: ['id'],
+    referencedTableName: 'bank',
+  });
+
+  private tableDayOfPaymentForeignKey = new TableForeignKey({
+    columnNames: ['day_of_payment_id'],
+    referencedColumnNames: ['id'],
+    referencedTableName: 'days_of_payments',
+  });
 
   public async up(queryRunner: QueryRunner): Promise<any> {
     const table: Table = new Table({
@@ -51,12 +63,21 @@ export class companies1560390313074 implements MigrationInterface {
           name: 'bank_id',
           type: 'integer',
           isNullable: false,
-        }
+        },
       ],
     });
+    await queryRunner.createTable(table);
+    await queryRunner.createForeignKeys(table, [
+      this.tableDayOfPaymentForeignKey,
+      this.tableBankForeignKey]);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
+    await queryRunner.dropTable('companies');
+    await queryRunner.dropForeignKeys('companies', [
+      this.tableDayOfPaymentForeignKey,
+      this.tableBankForeignKey,
+    ]);
   }
 
 }
