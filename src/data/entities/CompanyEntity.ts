@@ -29,5 +29,5 @@ export default class CompanyEntity {
 
   @ManyToOne(() => DayOfPaymentEntity)
   @JoinColumn({ name: 'day_of_payment_id' })
-    dayOfPaymentBY: DayOfPaymentEntity;
+    dayOfPaymentBy: DayOfPaymentEntity;
 }
