@@ -16,7 +16,7 @@ yarn install
 ```
 copy the ENV in the project:
 ```
- docker-compose exec web cp .env.example .env
+cp .env.example .env
 ```
 run docker and connect to container:
 ```
