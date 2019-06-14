@@ -73,11 +73,11 @@ export class companies1560390313074 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.dropTable('companies');
     await queryRunner.dropForeignKeys('companies', [
       this.tableDayOfPaymentForeignKey,
       this.tableBankForeignKey,
     ]);
+    await queryRunner.dropTable('companies');
   }
 
 }
