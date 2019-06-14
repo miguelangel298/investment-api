@@ -4,17 +4,44 @@
 
 
 # Pre-reqs
-To build and run this app locally you will need a few things:
-- Install [Node.js](https://nodejs.org/en/)
+* [Docker](https://www.docker.com/)
+* [Yarn](https://yarnpkg.com/en/)
 
-# Getting started
+### Installing
 
 - Install dependencies
 ```
 cd <project>
 yarn install
 ```
-- run the project
+copy the ENV in the project:
 ```
-yarn start
+ docker-compose exec web cp .env.example .env
+```
+run docker and connect to container:
+```
+ docker-compose up --build
+```
+run migration for creating the tables:
+```
+ docker-compose exec web yarn db:migrate
+```
+run seeder:
+```
+ docker-compose exec web yarn db:seed
+```
+
+### Tests
+
+run tests unitaires:
+```
+ docker-compose exec web yarn test:unit
+```
+run tests intégration:
+```
+ docker-compose exec web yarn test:integration
+```
+run all tests:
+```
+ docker-compose exec web yarn test:all
 ```
