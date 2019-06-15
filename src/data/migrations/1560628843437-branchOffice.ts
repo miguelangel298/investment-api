@@ -111,7 +111,7 @@ export class branchOffice1560628843437 implements MigrationInterface {
     ]);
   }
 
-  public asyncg down(queryRunner: QueryRunner): Promise<any> {
+  public async down(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.dropForeignKeys('branch_office', [
       this.tableBranchOfOfficeStatusByForeignKey,
       this.tableCompanyByForeignKey,
