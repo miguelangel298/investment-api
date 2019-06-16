@@ -8,12 +8,6 @@ export class provinces1560694741094 implements MigrationInterface {
     referencedTableName: 'countries',
   });
 
-  // private tableModifiedForeignKey = new TableForeignKey({
-  //   columnNames: ['updated_by'],
-  //   referencedColumnNames: ['id'],
-  //   referencedTableName: 'users',
-  // });
-
   public async up(queryRunner: QueryRunner): Promise<any> {
     const table: Table = new Table({
       name: 'provinces',
