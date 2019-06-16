@@ -44,7 +44,7 @@ export class branchOffice1560628843437 implements MigrationInterface {
         },
         {
           name: 'name',
-          type: 'text',
+          type: 'varchar',
           length: '300',
           isNullable: false,
         },
@@ -86,7 +86,7 @@ export class branchOffice1560628843437 implements MigrationInterface {
         {
           name: 'updated_by',
           type: 'int',
-          isNullable: false,
+          isNullable: true,
         },
         {
           name: 'created_at',
@@ -94,8 +94,8 @@ export class branchOffice1560628843437 implements MigrationInterface {
           isNullable: false,
         },
         {
-          name: 'updated_by',
-          type: 'integer',
+          name: 'updated_at',
+          type: 'timestamp',
           isNullable: true,
         },
       ],

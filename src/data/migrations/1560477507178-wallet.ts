@@ -54,7 +54,7 @@ export class wallet1560477507178 implements MigrationInterface {
         {
           name: 'updated_by',
           type: 'int',
-          isNullable: false,
+          isNullable: true,
         },
         {
           name: 'created_at',
@@ -62,14 +62,14 @@ export class wallet1560477507178 implements MigrationInterface {
           isNullable: false,
         },
         {
-          name: 'updated_by',
-          type: 'integer',
+          name: 'updated_at',
+          type: 'timestamp',
           isNullable: true,
         },
       ],
     });
     await queryRunner.createTable(table);
-    await queryRunner.dropForeignKeys(table, [
+    await queryRunner.createForeignKeys(table, [
       this.tableCreateByForeignKey,
       this.tableModifiedForeignKey,
       this.tableUserByForeignKey,
