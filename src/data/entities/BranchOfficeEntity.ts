@@ -5,7 +5,7 @@ import BranchOfOfficeStatusEntity from './BranchOfOfficeStatusEntity';
 import UserEntity from './UserEntity';
 
 @Entity('branch_office')
-export default class BranchOffice {
+export default class BranchOfficeEntity {
 
   @PrimaryColumn()
     id: number;
