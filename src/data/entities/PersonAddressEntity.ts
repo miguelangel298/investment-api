@@ -18,7 +18,10 @@ export default class PersonAddressEntity {
   number: string;
 
   @Column()
-  detail: boolean;
+  detail: string;
+
+  @Column()
+  active: boolean;
 
   @ManyToOne(() => ProvinceEntity)
   @JoinColumn({ name: 'province_id' })

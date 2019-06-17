@@ -59,7 +59,7 @@ export class personAddress1560718377658 implements MigrationInterface {
           isNullable: true,
         },
         {
-          name: 'current',
+          name: 'active',
           type: 'boolean',
           isNullable: false,
         },
