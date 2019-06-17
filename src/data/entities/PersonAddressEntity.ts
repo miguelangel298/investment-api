@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import ProvinceEntity from './ProvinceEntity';
 import UserEntity from './UserEntity';
+import PersonEntity from './PersonEntity';
 
 @Entity('person_address')
 export default class PersonAddressEntity {
@@ -22,6 +23,10 @@ export default class PersonAddressEntity {
 
   @Column()
   active: boolean;
+
+  @ManyToOne(() => PersonEntity)
+  @JoinColumn({ name: 'person_id' })
+  person: PersonEntity;
 
   @ManyToOne(() => ProvinceEntity)
   @JoinColumn({ name: 'province_id' })

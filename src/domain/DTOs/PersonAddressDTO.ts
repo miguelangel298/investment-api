@@ -1,6 +1,7 @@
 import ProvinceDTO from './ProvinceDTO';
 import UserDTO from './UserDTO';
 import PersonAddressEntity from '../../data/entities/PersonAddressEntity';
+import PersonDTO from './PersonDTO';
 
 export default class PersonAddressDTO {
 
@@ -10,6 +11,7 @@ export default class PersonAddressDTO {
   number: string;
   detail: string;
   active: boolean;
+  person: PersonDTO;
   province: ProvinceDTO;
   createdBy: UserDTO;
   updatedBy: UserDTO;
@@ -25,6 +27,7 @@ export default class PersonAddressDTO {
     this.active = personAddressEntity.active;
     this.createdAt = personAddressEntity.createdAt;
     this.updatedAt = personAddressEntity.updatedAt;
+    this.person = new PersonDTO(personAddressEntity.person);
 
     if (personAddressEntity.province) {
       this.province = new ProvinceDTO(personAddressEntity.province);

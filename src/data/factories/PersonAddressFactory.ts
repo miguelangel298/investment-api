@@ -4,6 +4,7 @@ import { FactoryStatic } from './interfaces/Factory';
 import RepositoryModule from '../../application/modules/RepositoryModule';
 import UserEntity from '../entities/UserEntity';
 import ProvinceEntity from '../entities/ProvinceEntity';
+import PersonEntity from '../entities/PersonEntity';
 
 define(PersonAddressEntity, async (faker: Faker.FakerStatic, factory:
   FactoryStatic): Promise<PersonAddressEntity> => {
@@ -16,13 +17,18 @@ define(PersonAddressEntity, async (faker: Faker.FakerStatic, factory:
   const provinceFind = await RepositoryModule.provinceRepository().findOne();
   const province = provinceFind ? provinceFind : await factory.get(ProvinceEntity).create();
 
-  const personAddress = new PersonAddressEntity();
+  // Get person
+  const personFind = await RepositoryModule.personRepository().findOne();
+  const person = personFind ? personFind : await factory.get(PersonEntity).create();
 
+  // Create person address
+  const personAddress = new PersonAddressEntity();
   personAddress.sector = faker.address.city();
   personAddress.building = faker.address.countryCode();
   personAddress.detail = faker.address.secondaryAddress();
   personAddress.active = false;
   personAddress.number = faker.address.state(true);
+  personAddress.person = person;
   personAddress.province = province;
   personAddress.createdAt = new Date();
   personAddress.createdBy = user;
