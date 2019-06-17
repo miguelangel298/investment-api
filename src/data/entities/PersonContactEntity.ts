@@ -14,6 +14,9 @@ export default class PersonContactEntity {
   @Column()
   ext: number;
 
+  @Column()
+  dependents: number;
+
   @ManyToOne(() => ContactTypeEntity)
   @JoinColumn({ name: 'contact_type_id' })
   contactType: ContactTypeEntity;
