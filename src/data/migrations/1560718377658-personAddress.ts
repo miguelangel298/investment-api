@@ -2,6 +2,12 @@ import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm
 
 export class personAddress1560718377658 implements MigrationInterface {
 
+  private tablePersonByForeignKey = new TableForeignKey({
+    columnNames: ['person_id'],
+    referencedColumnNames: ['id'],
+    referencedTableName: 'persons',
+  });
+
   private tableProvinceByForeignKey = new TableForeignKey({
     columnNames: ['province_id'],
     referencedColumnNames: ['id'],
@@ -64,6 +70,11 @@ export class personAddress1560718377658 implements MigrationInterface {
           isNullable: false,
         },
         {
+          name: 'person_id',
+          type: 'int',
+          isNullable: false,
+        },
+        {
           name: 'created_by',
           type: 'int',
           isNullable: false,
@@ -90,6 +101,7 @@ export class personAddress1560718377658 implements MigrationInterface {
       this.tableCreateByForeignKey,
       this.tableModifiedForeignKey,
       this.tableProvinceByForeignKey,
+      this.tablePersonByForeignKey,
     ]);
   }
 
@@ -98,6 +110,7 @@ export class personAddress1560718377658 implements MigrationInterface {
       this.tableProvinceByForeignKey,
       this.tableModifiedForeignKey,
       this.tableCreateByForeignKey,
+      this.tablePersonByForeignKey,
     ]);
     await queryRunner.dropTable('person_address');
   }
