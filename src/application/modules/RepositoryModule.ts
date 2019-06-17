@@ -5,6 +5,7 @@ import PersonRepository from '../../data/repository/PersonRepository/PersonRepos
 import CountryRepository from '../../data/repository/CountryRepository/CountryRepository';
 import ProvinceRepository from '../../data/repository/ProvinceRepository/ProvinceRepository';
 import ContactTypeRepository from '../../data/repository/ContactTypeRepository/ContactTypeRepository';
+import CivilStatusRepository from '../../data/repository/CivilStatusRepository/CivilStatusRepository';
 
 export default class RepositoryModule {
 
@@ -30,6 +31,10 @@ export default class RepositoryModule {
 
   static contactTypeRepository(): ContactTypeRepository {
     return getCustomRepository(ContactTypeRepository);
+  }
+
+  static civilStatusRepository(): CivilStatusRepository {
+    return getCustomRepository(CivilStatusRepository);
   }
 
 }
