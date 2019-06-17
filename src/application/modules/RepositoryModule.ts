@@ -4,6 +4,7 @@ import GroupRepository from '../../data/repository/GroupRepository/GroupReposito
 import PersonRepository from '../../data/repository/PersonRepository/PersonRepository';
 import CountryRepository from '../../data/repository/CountryRepository/CountryRepository';
 import ProvinceRepository from '../../data/repository/ProvinceRepository/ProvinceRepository';
+import ContactTypeRepository from '../../data/repository/ContactTypeRepository/ContactTypeRepository';
 
 export default class RepositoryModule {
 
@@ -25,6 +26,10 @@ export default class RepositoryModule {
 
   static provinceRepository(): ProvinceRepository {
     return getCustomRepository(ProvinceRepository);
+  }
+
+  static contactTypeRepository(): ContactTypeRepository {
+    return getCustomRepository(ContactTypeRepository);
   }
 
 }
