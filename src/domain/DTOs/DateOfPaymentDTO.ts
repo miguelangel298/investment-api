@@ -1,5 +1,5 @@
-import CompanyDTO from './DTOs/CompanyDTO';
-import DateOfPaymentEntity from '../data/entities/DateOfPaymentEntity';
+import CompanyDTO from './CompanyDTO';
+import DateOfPaymentEntity from '../../data/entities/DateOfPaymentEntity';
 
 export default class DateOfPaymentDTO {
 
