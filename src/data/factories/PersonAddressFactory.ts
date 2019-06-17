@@ -13,7 +13,7 @@ define(PersonAddressEntity, async (faker: Faker.FakerStatic, factory:
   const user = userFind ? userFind : await factory.get(UserEntity).create();
 
   // Get province
-  const provinceFind = await RepositoryModule.provinceRepsotiry().findOne();
+  const provinceFind = await RepositoryModule.provinceRepository().findOne();
   const province = provinceFind ? provinceFind : await factory.get(ProvinceEntity).create();
 
   const personAddress = new PersonAddressEntity();

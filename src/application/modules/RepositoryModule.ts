@@ -23,7 +23,8 @@ export default class RepositoryModule {
     return getCustomRepository(CountryRepository);
   }
 
-  static provinceRepsotiry(): ProvinceRepository {
+  static provinceRepository(): ProvinceRepository {
     return getCustomRepository(ProvinceRepository);
   }
+
 }
