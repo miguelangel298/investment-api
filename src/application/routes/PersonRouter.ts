@@ -53,13 +53,11 @@ export default class PersonRouter extends BaseRouter {
   /**
    * Obtain the value sent through the assigned parameter `ip`,
    * validate the value received.
-   * @param { GetPersonByCardIdQuery}
+   * @param { GetPersonByCardIdQuery }
    * @Return { PersonDTO }
    */
   show(): RequestHandler {
     return(req: Request, res: Response) => {
-
-      console.log(req.params);
       /**
        * Validate the required fields before calling the controller.
        */
