@@ -5,6 +5,7 @@ import PayloadValidator from '../util/PayloadValidator';
 import { buildError, httpCodes } from '../config/ErrorCode';
 import ResponseHandler from '../util/ResponseHandler';
 import CreatePersonCommand from '../../domain/command/CreatePersonCommand';
+import GetPersonByCardIdQuery from '../../domain/queries/GetPersonByCardIdQuery';
 
 export default class PersonRouter extends BaseRouter {
   constructor(route: string, protected personController: PersonController) {
@@ -43,6 +44,25 @@ export default class PersonRouter extends BaseRouter {
 
       this.personController.create(person)
         .then(response => ResponseHandler.sendResponse(res, httpCodes.CREATED,
+                                                       'persons', response))
+        .catch(err => ResponseHandler.sendError(res, err));
+    };
+  }
+
+  /**
+   * Obtain the value sent through the assigned parameter `ip`,
+   * validate the value received.
+   * @param { GetPersonByCardIdQuery}
+   * @Return { PersonDTO }
+   */
+  show(): RequestHandler {
+    return(req: Request, res: Response) => {
+      const person: GetPersonByCardIdQuery = {
+        cardID: req.params.id,
+      };
+
+      this.personController.show(person)
+        .then(response => ResponseHandler.sendResponse(res, httpCodes.OK,
                                                        'persons', response))
         .catch(err => ResponseHandler.sendError(res, err));
     };
