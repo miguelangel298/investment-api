@@ -1,11 +1,13 @@
 import GroupEntity from '../../data/entities/GroupEntity';
 import PermissionGroupDTO from './PermissionGroupDTO';
 import UserDTO from './UserDTO';
+import PermissionDTO from './PermissionDTO';
 
 export default class GroupDTO {
   id: number;
   name: string;
   description: string;
+  permissions: PermissionDTO[];
   createdBy: UserDTO;
   createdAt: Date;
   updatedBy: UserDTO;
@@ -23,11 +25,12 @@ export default class GroupDTO {
       this.createdBy = new UserDTO(groupEntity.createdBy);
     }
     if (groupEntity.updatedBy) {
-      this.updatedBy = groupEntity.updatedBy;
+      this.updatedBy = new UserDTO(groupEntity.updatedBy);
     }
     if (groupEntity.permissionGroups) {
-      this.permissionGroups =
-        groupEntity.permissionGroups.map(permission => new PermissionGroupDTO(permission));
+      this.permissions = groupEntity.permissionGroups.map(permissionGroup =>
+        new PermissionDTO(permissionGroup.permission));
     }
+
   }
 }

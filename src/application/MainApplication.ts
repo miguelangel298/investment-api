@@ -10,6 +10,7 @@ import UserRouter from './routes/UserRouter';
 import ControllerModule from './modules/ControllerModule';
 import AuthRouter from './routes/AuthRouter';
 import PersonRouter from './routes/PersonRouter';
+import { authMiddleware } from './middlewares/authMiddleware';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -29,11 +30,15 @@ export default class MainApplication extends Application {
 
   createApp() {
 
+    const authenticationMiddleware = authMiddleware();
+
     // Create routers
     this.router.get('/', this.homePage());
     this.addRouter(new AuthRouter('/auth', ControllerModule.getAuthController()));
     this.addRouter(new UserRouter('/users', ControllerModule.getUserController()));
-    this.addRouter(new PersonRouter('/persons', ControllerModule.getPersonController()));
+    this.addRouter(new PersonRouter('/persons',
+                                    ControllerModule.getPersonController(),
+                                    authenticationMiddleware));
     this.router.use(this.notFound());
   }
 
