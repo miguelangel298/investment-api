@@ -3,6 +3,7 @@ import UserStatusDTO from './UserStatusDTO';
 import PersonDTO from './PersonDTO';
 import UserPermissionGroupDTO from './UserPermissionGroupDTO';
 import RoleDTO from './RoleDTO';
+import GroupDTO from './GroupDTO';
 
 export default class UserDTO {
   id: number;
@@ -15,7 +16,7 @@ export default class UserDTO {
   createdAt: Date;
   updatedBy: UserDTO;
   updatedAt: Date;
-  userPermissionGroups: UserPermissionGroupDTO;
+  userPermissionGroups: GroupDTO[];
 
   constructor(userEntity: UserEntity) {
     this.id = userEntity.id;
@@ -41,7 +42,9 @@ export default class UserDTO {
 
     if (userEntity.userPermissionGroups) {
       this.userPermissionGroups =
-        new UserPermissionGroupDTO(userEntity.userPermissionGroups);
+        userEntity.userPermissionGroups.map(permissionGroup =>
+        new GroupDTO(permissionGroup.group));
     }
+
   }
 }

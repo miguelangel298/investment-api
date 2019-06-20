@@ -51,8 +51,8 @@ export default class UserEntity {
   @CreateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-  @OneToOne(() => UserPermissionGroupEntity, userPermissionGroups => userPermissionGroups.user)
-    userPermissionGroups: UserPermissionGroupEntity;
+  @OneToMany(() => UserPermissionGroupEntity, userPermissionGroups => userPermissionGroups.user)
+  userPermissionGroups: UserPermissionGroupEntity[];
 
   setPassword(password: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {

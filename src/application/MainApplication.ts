@@ -30,7 +30,6 @@ export default class MainApplication extends Application {
 
   createApp() {
 
-
     const authenticationMiddleware = authMiddleware();
 
     // Create routers

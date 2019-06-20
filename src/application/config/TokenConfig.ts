@@ -17,6 +17,7 @@ export interface DataStoredInToken {
 
 // Structure of response in creation new token
 export interface TokenData {
+  user?: AuthUser;
   token: any;
   expiresIn?: string;
   refreshToken?: string;

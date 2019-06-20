@@ -32,6 +32,7 @@ export class TokenService {
     }
 
     return {
+      user,
       expiresIn:process.env.TOKEN_EXPIRESIN,
       token: jwt.sign(dataStoredInToken,
                       SECRET_KEY,
