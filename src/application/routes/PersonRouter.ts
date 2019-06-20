@@ -5,6 +5,7 @@ import PayloadValidator from '../util/PayloadValidator';
 import { buildError, httpCodes } from '../config/ErrorCode';
 import ResponseHandler from '../util/ResponseHandler';
 import CreatePersonCommand from '../../domain/command/CreatePersonCommand';
+import GetPersonByCardIdQuery from '../../domain/queries/GetPersonByCardIdQuery';
 
 export default class PersonRouter extends BaseRouter {
   constructor(route: string, protected personController: PersonController) {
@@ -14,6 +15,7 @@ export default class PersonRouter extends BaseRouter {
 
   addRoutes(): void {
     this.router.post('/', this.create());
+    this.router.get('/:cardID', this.show());
   }
 
   create(): RequestHandler {
@@ -43,6 +45,37 @@ export default class PersonRouter extends BaseRouter {
 
       this.personController.create(person)
         .then(response => ResponseHandler.sendResponse(res, httpCodes.CREATED,
+                                                       'persons', response))
+        .catch(err => ResponseHandler.sendError(res, err));
+    };
+  }
+
+  /**
+   * Obtain the value sent through the assigned parameter `ip`,
+   * validate the value received.
+   * @param { GetPersonByCardIdQuery }
+   * @Return { PersonDTO }
+   */
+  show(): RequestHandler {
+    return(req: Request, res: Response) => {
+      /**
+       * Validate the required fields before calling the controller.
+       */
+      const payloadValidate = new PayloadValidator(req);
+      payloadValidate.validate(['cardID']);
+      const errors = payloadValidate.getErrors();
+
+      if (errors) {
+        const response = buildError(httpCodes.BAD_REQUEST, errors);
+        return ResponseHandler.sendError(res, response);
+      }
+
+      const person: GetPersonByCardIdQuery = {
+        cardID: req.params.cardID,
+      };
+
+      this.personController.show(person)
+        .then(response => ResponseHandler.sendResponse(res, httpCodes.OK,
                                                        'persons', response))
         .catch(err => ResponseHandler.sendError(res, err));
     };

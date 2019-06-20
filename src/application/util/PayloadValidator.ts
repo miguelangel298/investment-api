@@ -25,7 +25,8 @@ export default class PayloadValidator {
      * The search is performed in the request with the parameters to validate
      */
     const invalidProperties: any[] = this.validations
-      .filter(e => !(this.req.body[e.property] || this.req.query[e.property]));
+      .filter(e => !(this.req.body[e.property] || this.req.query[e.property]
+      || this.req.params[e.property]));
     const messages = invalidProperties.map(prop => prop.message);
     return messages.length && messages;
   }

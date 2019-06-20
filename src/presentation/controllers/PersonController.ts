@@ -26,4 +26,19 @@ export default class PersonController {
       throw buildRawError(e);
     }
   }
+
+  /**
+   * Get the data and their relationships.
+   * @param { GetPersonByCardIdQuery }
+   * @return { PersonDTO }
+   */
+  async show(query: GetPersonByCardIdQuery): Promise<PersonDTO> {
+    try {
+      const getPersonByCardIdQueryHandler =
+        new GetPersonByCardIdQueryHandler(this.personRepository);
+      return await getPersonByCardIdQueryHandler.handle(query);
+    } catch (e) {
+      throw buildRawError(e);
+    }
+  }
 }
