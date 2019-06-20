@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { AuthUser } from './AuthUser';
+import { AuthUser } from '../config/TokenConfig';
 
 export interface RequestWithUser extends Request {
   user: AuthUser;

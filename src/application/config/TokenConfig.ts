@@ -1,8 +1,26 @@
 import * as jwt from 'jsonwebtoken';
-import { buildRawError, httpCodes } from '../config/ErrorCode';
-import { AuthUser } from './AuthUser';
-import { TokenData } from './TokenData';
-import { DataStoredInToken } from './DataStoredInToken';
+import { buildRawError, httpCodes } from './ErrorCode';
+
+// These are the data that the token will keep
+export interface AuthUser {
+  id?: number;
+  fullName?: string;
+  permission?: string[];
+  role?: string;
+  email?: string;
+  person?:{ id: number };
+}
+
+export interface DataStoredInToken {
+  user: AuthUser;
+}
+
+// Structure of response in creation new token
+export interface TokenData {
+  token: any;
+  expiresIn?: string;
+  refreshToken?: string;
+}
 
 /**
  * This function create the token access, refresh token and, expiresIn.
