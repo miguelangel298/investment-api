@@ -15,6 +15,7 @@ export default class PersonRouter extends BaseRouter {
 
   addRoutes(): void {
     this.router.post('/', this.create());
+    this.router.get('/:cardID', this.show());
   }
 
   create(): RequestHandler {
@@ -57,8 +58,22 @@ export default class PersonRouter extends BaseRouter {
    */
   show(): RequestHandler {
     return(req: Request, res: Response) => {
+
+      console.log(req.params);
+      /**
+       * Validate the required fields before calling the controller.
+       */
+      const payloadValidate = new PayloadValidator(req);
+      payloadValidate.validate(['cardID']);
+      const errors = payloadValidate.getErrors();
+
+      if (errors) {
+        const response = buildError(httpCodes.BAD_REQUEST, errors);
+        return ResponseHandler.sendError(res, response);
+      }
+
       const person: GetPersonByCardIdQuery = {
-        cardID: req.params.id,
+        cardID: req.params.cardID,
       };
 
       this.personController.show(person)
