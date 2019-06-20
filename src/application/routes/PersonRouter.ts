@@ -8,12 +8,15 @@ import CreatePersonCommand from '../../domain/command/CreatePersonCommand';
 import GetPersonByCardIdQuery from '../../domain/queries/GetPersonByCardIdQuery';
 
 export default class PersonRouter extends BaseRouter {
-  constructor(route: string, protected personController: PersonController) {
+  constructor(route: string,
+              protected personController: PersonController,
+              protected tokenMiddleware: RequestHandler) {
     super(route, false);
     this.addRoutes();
   }
 
   addRoutes(): void {
+    this.router.use(this.tokenMiddleware);
     this.router.post('/', this.create());
     this.router.get('/:cardID', this.show());
   }
