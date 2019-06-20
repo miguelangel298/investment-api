@@ -10,6 +10,7 @@ export default interface GetUserSessionQuery extends IQuery {
 export class GetUserSessionQueryHandler implements IQueryHandler<SessionDTO> {
   async handle(query: GetUserSessionQuery): Promise<SessionDTO> {
     const strUser = JSON.parse(JSON.stringify(query.user));
+    const tokenData = TokenData
     const token = jsonwebtoken.sign(strUser, process.env.TOKEN_SECRET);
     return new SessionDTO(query.user, token);
   }
