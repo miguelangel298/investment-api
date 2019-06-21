@@ -1,7 +1,6 @@
 import { IQuery, IQueryHandler } from './base/IQuery';
 import IUserRepository from '../../data/repository/UserRepository/IUserRepository';
 import UserDTO from '../DTOs/UserDTO';
-import UserRepository from '../../data/repository/UserRepository/UserRepository';
 
 export default interface GetUserLoginQuery extends IQuery {
   username: string;

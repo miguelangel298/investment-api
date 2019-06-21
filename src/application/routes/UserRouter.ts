@@ -6,14 +6,18 @@ import { buildError, httpCodes } from '../config/ErrorCode';
 import GetUserLoginQuery from '../../domain/queries/GetUserLoginQuery';
 import PayloadValidator from '../util/PayloadValidator';
 import CreateUserCommand from '../../domain/command/CreateUserCommand';
+import PersonController from '../../presentation/controllers/PersonController';
 
 export default class UserRouter extends BaseRouter {
-  constructor(route: string, protected userController: UserController) {
+  constructor(route: string,
+              protected userController: UserController,
+              protected tokenMiddleware: RequestHandler) {
     super(route, false);
     this.addRoutes();
   }
 
   addRoutes(): void {
+    this.router.use(this.tokenMiddleware);
     this.router.post('/', this.create());
     this.router.get('/:username', this.show());
   }
