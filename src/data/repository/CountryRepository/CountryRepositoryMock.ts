@@ -7,10 +7,13 @@ export default class CountryRepositoryMock implements ICountryRepository {
   public static entity: CountryEntity[] = [{
     id: 1,
     name: 'Republica Dominicana',
+  } as CountryEntity, {
+    id: 2,
+    name: 'Republica Dominicana',
   } as CountryEntity,
   ];
 
-  async find(conditions ? : FindConditions<CountryEntity>): Promise < CountryEntity[] > {
-    return undefined;
+  async find(conditions ? : FindConditions<CountryEntity>): Promise <CountryEntity[]> {
+    return CountryRepositoryMock.entity;
   }
 }

@@ -6,7 +6,7 @@ import ICountryRepository from '../../data/repository/CountryRepository/ICountry
  * Get the list of countries.
  * @returns { CountryDTO[] }
  */
-export default class GetCountriesQueryHandler implements IQueryHandler<CountryDTO[]> {
+export  class GetCountriesQueryHandler implements IQueryHandler<CountryDTO[]> {
 
   constructor(protected countryRepository: ICountryRepository) { }
 
