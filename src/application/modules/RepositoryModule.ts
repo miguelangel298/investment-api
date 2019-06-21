@@ -4,8 +4,10 @@ import GroupRepository from '../../data/repository/GroupRepository/GroupReposito
 import PersonRepository from '../../data/repository/PersonRepository/PersonRepository';
 import CountryRepository from '../../data/repository/CountryRepository/CountryRepository';
 import ProvinceRepository from '../../data/repository/ProvinceRepository/ProvinceRepository';
-import ContactTypeRepository from '../../data/repository/ContactTypeRepository/ContactTypeRepository';
-import CivilStatusRepository from '../../data/repository/CivilStatusRepository/CivilStatusRepository';
+import ContactTypeRepository
+  from '../../data/repository/ContactTypeRepository/ContactTypeRepository';
+import CivilStatusRepository
+  from '../../data/repository/CivilStatusRepository/CivilStatusRepository';
 
 export default class RepositoryModule {
 

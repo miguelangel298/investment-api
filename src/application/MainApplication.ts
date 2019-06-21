@@ -11,6 +11,7 @@ import ControllerModule from './modules/ControllerModule';
 import AuthRouter from './routes/AuthRouter';
 import PersonRouter from './routes/PersonRouter';
 import { authMiddleware } from './middlewares/authMiddleware';
+import CountryRouter from './routes/CountryRouter';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -41,6 +42,9 @@ export default class MainApplication extends Application {
     this.addRouter(new UserRouter('/users',
                                   ControllerModule.getUserController(),
                                   authenticationMiddleware));
+    this.addRouter(new CountryRouter('/countries',
+                                     ControllerModule.getCountryController(),
+                                     authenticationMiddleware));
     this.router.use(this.notFound());
   }
 
