@@ -4,19 +4,44 @@ import CreatePersonCommand from '../../src/domain/command/CreatePersonCommand';
 import DatabaseConnection from '../../src/data/DatabaseConnection';
 import PersonRepository from '../../src/data/repository/PersonRepository/PersonRepository';
 import { getCustomRepository } from 'typeorm';
+import UserDTO from '../../src/domain/DTOs/UserDTO';
+import { TokenService } from '../../src/application/util/TokenService';
+import getPermissions from '../../src/application/util/getPermissions';
+import { AuthUser, TokenData } from '../../src/application/config/TokenConfig';
+import UserRepository from '../../src/data/repository/UserRepository/UserRepository';
+import { GetUserLoginQueryHandler } from '../../src/domain/queries/GetUserLoginQuery';
 
 dotenv.config();
 let request = require('supertest');
 request = request(`http://localhost:${process.env.PORT}`);
 let person: any;
 let personRepository: PersonRepository;
+let token : string;
+let user : UserDTO;
+let userRepository: UserRepository;
 
 describe('Person router', () => {
 
   beforeAll(async () => {
     await DatabaseConnection.connect();
     personRepository = await getCustomRepository(PersonRepository);
+    userRepository = getCustomRepository(UserRepository);
     person = await personRepository.findOne();
+    const queryHandler = new GetUserLoginQueryHandler(userRepository);
+    user = await queryHandler.handle({ username: 'admin' });
+
+    const authUser: AuthUser = {
+      id: user.id,
+      role: user.role.name,
+      fullName: `${user.person.names} ${user.person.firstSurname} ${user.person.secondSurname}`,
+      person: { id:user.person.id },
+      permission: getPermissions(user),
+    };
+    const tokenData: TokenData = TokenService.createToken(authUser,
+                                                          process.env.SECRET_KEY,
+                                                          process.env.TOKEN_EXPIRESIN);
+    token = tokenData.token;
+
   });
 
   it('should create a new person', async (done) => {
@@ -33,6 +58,7 @@ describe('Person router', () => {
 
     request.post('/api/persons')
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
       .send(person)
       .expect((res: Response) => {
         if (!('persons' in res.body))   throw new Error('Missing persons key');
@@ -52,6 +78,7 @@ describe('Person router', () => {
 
     request.post('/api/persons')
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
       .send(person)
       .expect((res: Response) => {
         if (!('message' in res.body))   throw new Error('Missing message key');
@@ -60,9 +87,11 @@ describe('Person router', () => {
   });
 
   it('Test of Find Person in the route with method GET /api/persons/:ID', async (done) => {
+
     request
       .get(`/api/persons/${person.cardId}`)
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
       .expect((res: any) => {
         if (!('persons' in res.body))   throw new Error('Missing persons key');
         if (!('id' in res.body.persons))   throw new Error('Missing id key');
@@ -74,6 +103,7 @@ describe('Person router', () => {
      async (done) => {
        request.post('/api/persons/')
          .set('Accept', 'application/json')
+         .set('Authorization', `Bearer ${token}`)
          .send(person)
          .expect((res: Response) => {
            if (!('message' in res.body))   throw new Error('Missing message key');
