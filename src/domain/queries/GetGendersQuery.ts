@@ -6,7 +6,7 @@ import IGenderRepository from '../../data/repository/GenderRepository/IGenderRep
  * Get the list of genders.
  * @returns { GenderDTO[] }
  */
-export class GetGendersQuery implements IQueryHandler<GenderDTO[]> {
+export class GetGendersQueryHandler implements IQueryHandler<GenderDTO[]> {
   constructor(protected genderRepository: IGenderRepository) { }
 
   async handle(): Promise<GenderDTO[]> {
