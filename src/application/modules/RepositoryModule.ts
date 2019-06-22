@@ -8,6 +8,7 @@ import ContactTypeRepository
   from '../../data/repository/ContactTypeRepository/ContactTypeRepository';
 import CivilStatusRepository
   from '../../data/repository/CivilStatusRepository/CivilStatusRepository';
+import GenderRepository from '../../data/repository/GenderRepository/GenderRepository';
 
 export default class RepositoryModule {
 
@@ -37,6 +38,10 @@ export default class RepositoryModule {
 
   static civilStatusRepository(): CivilStatusRepository {
     return getCustomRepository(CivilStatusRepository);
+  }
+
+  static genderRepository(): GenderRepository {
+    return getCustomRepository(GenderRepository);
   }
 
 }

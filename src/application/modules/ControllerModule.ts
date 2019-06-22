@@ -3,6 +3,7 @@ import RepositoryModule from './RepositoryModule';
 import AuthController from '../../presentation/controllers/AuthController';
 import PersonController from '../../presentation/controllers/PersonController';
 import CountryController from '../../presentation/controllers/CountryController';
+import GenderController from '../../presentation/controllers/GenderController';
 
 export default class ControllerModule {
 
@@ -20,5 +21,9 @@ export default class ControllerModule {
 
   static getCountryController(): CountryController {
     return new CountryController(RepositoryModule.countryRepository());
+  }
+
+  static getGenderController(): GenderController {
+    return new GenderController(RepositoryModule.genderRepository());
   }
 }
