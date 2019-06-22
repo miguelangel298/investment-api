@@ -12,6 +12,7 @@ import AuthRouter from './routes/AuthRouter';
 import PersonRouter from './routes/PersonRouter';
 import { authMiddleware } from './middlewares/authMiddleware';
 import CountryRouter from './routes/CountryRouter';
+import GenderRouter from './routes/GenderRouter';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -45,6 +46,9 @@ export default class MainApplication extends Application {
     this.addRouter(new CountryRouter('/countries',
                                      ControllerModule.getCountryController(),
                                      authenticationMiddleware));
+    this.addRouter(new GenderRouter('/genders',
+                                    ControllerModule.getGenderController(),
+                                    authenticationMiddleware));
     this.router.use(this.notFound());
   }
 
