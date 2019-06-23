@@ -11,6 +11,8 @@ import CivilStatusRepository
 import GenderRepository from '../../data/repository/GenderRepository/GenderRepository';
 import BranchOfficeRepository
   from '../../data/repository/BranchOfficeRepository/BranchOfficeRepository';
+import MunicipalityRepository
+  from '../../data/repository/MunicipalityRepository/MunicipalityRepository';
 
 export default class RepositoryModule {
 
@@ -50,4 +52,7 @@ export default class RepositoryModule {
     return getCustomRepository(BranchOfficeRepository);
   }
 
+  static municipalityRepository(): MunicipalityRepository {
+    return getCustomRepository(MunicipalityRepository);
+  }
 }
