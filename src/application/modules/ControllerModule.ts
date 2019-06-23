@@ -6,6 +6,7 @@ import CountryController from '../../presentation/controllers/CountryController'
 import GenderController from '../../presentation/controllers/GenderController';
 import BranchOfficeController from '../../presentation/controllers/BranchOfficeController';
 import CivilStatusController from '../../presentation/controllers/CivilStatusController';
+import ProvinceController from '../../presentation/controllers/ProvinceController';
 
 export default class ControllerModule {
 
@@ -35,5 +36,9 @@ export default class ControllerModule {
 
   static getCivilStatusController(): CivilStatusController {
     return new CivilStatusController(RepositoryModule.civilStatusRepository());
+  }
+
+  static getProvinceController(): ProvinceController {
+    return new ProvinceController(RepositoryModule.provinceRepository());
   }
 }
