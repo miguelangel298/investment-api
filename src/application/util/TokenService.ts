@@ -49,7 +49,6 @@ export class TokenService {
     return new Promise((resolve, reject) => {
       try {
         let token = authorization;
-        console.log('klk pp esta llegando')
         if (token !== undefined) {
           token = token.split(' ')[1];
         }

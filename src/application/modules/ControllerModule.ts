@@ -5,6 +5,7 @@ import PersonController from '../../presentation/controllers/PersonController';
 import CountryController from '../../presentation/controllers/CountryController';
 import GenderController from '../../presentation/controllers/GenderController';
 import BranchOfficeController from '../../presentation/controllers/BranchOfficeController';
+import CivilStatusController from '../../presentation/controllers/CivilStatusController';
 
 export default class ControllerModule {
 
@@ -29,6 +30,10 @@ export default class ControllerModule {
   }
 
   static getBranchOfficeController(): BranchOfficeController {
-    return new BranchOfficeController(RepositoryModule.branchOfficeReposity());
+    return new BranchOfficeController(RepositoryModule.branchOfficeRepository());
+  }
+
+  static getCivilStatusController(): CivilStatusController {
+    return new CivilStatusController(RepositoryModule.civilStatusRepository());
   }
 }

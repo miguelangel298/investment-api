@@ -46,7 +46,7 @@ export default class RepositoryModule {
     return getCustomRepository(GenderRepository);
   }
 
-  static branchOfficeReposity(): BranchOfficeRepository {
+  static branchOfficeRepository(): BranchOfficeRepository {
     return getCustomRepository(BranchOfficeRepository);
   }
 
