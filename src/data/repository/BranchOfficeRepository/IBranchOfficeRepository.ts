@@ -6,4 +6,6 @@ export default interface IBranchOfficeRepository {
   findOne(conditions?: FindConditions<BranchOfficeEntity>, options?:
     FindOneOptions<BranchOfficeEntity>): Promise<BranchOfficeEntity | undefined>;
 
+  find(conditions?: FindConditions<BranchOfficeEntity>): Promise<BranchOfficeEntity[]>;
+
 }

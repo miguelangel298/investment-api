@@ -9,6 +9,8 @@ import ContactTypeRepository
 import CivilStatusRepository
   from '../../data/repository/CivilStatusRepository/CivilStatusRepository';
 import GenderRepository from '../../data/repository/GenderRepository/GenderRepository';
+import BranchOfficeRepository
+  from '../../data/repository/BranchOfficeRepository/BranchOfficeRepository';
 
 export default class RepositoryModule {
 
@@ -42,6 +44,10 @@ export default class RepositoryModule {
 
   static genderRepository(): GenderRepository {
     return getCustomRepository(GenderRepository);
+  }
+
+  static branchOfficeReposity(): BranchOfficeRepository {
+    return getCustomRepository(BranchOfficeRepository);
   }
 
 }
