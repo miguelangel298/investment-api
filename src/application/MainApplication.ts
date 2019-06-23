@@ -16,6 +16,7 @@ import GenderRouter from './routes/GenderRouter';
 import BranchOfficeRouter from './routes/BranchOfficeRouter';
 import CivilStatusRouter from './routes/CivilStatusRouter';
 import ProvinceRouter from './routes/ProvinceRouter';
+import MunicipalityRouter from './routes/MunicipalityRouter';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -61,6 +62,9 @@ export default class MainApplication extends Application {
     this.addRouter(new ProvinceRouter('/provinces',
                                       ControllerModule.getProvinceController(),
                                       authenticationMiddleware));
+    this.addRouter(new MunicipalityRouter('/municipalities',
+                                          ControllerModule.getMunicipalityController(),
+                                          authenticationMiddleware));
     this.router.use(this.notFound());
   }
 
