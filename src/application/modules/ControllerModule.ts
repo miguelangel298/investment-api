@@ -4,6 +4,7 @@ import AuthController from '../../presentation/controllers/AuthController';
 import PersonController from '../../presentation/controllers/PersonController';
 import CountryController from '../../presentation/controllers/CountryController';
 import GenderController from '../../presentation/controllers/GenderController';
+import BranchOfficeController from '../../presentation/controllers/BranchOfficeController';
 
 export default class ControllerModule {
 
@@ -25,5 +26,9 @@ export default class ControllerModule {
 
   static getGenderController(): GenderController {
     return new GenderController(RepositoryModule.genderRepository());
+  }
+
+  static getBranchOfficeController(): BranchOfficeController {
+    return new BranchOfficeController(RepositoryModule.branchOfficeReposity());
   }
 }

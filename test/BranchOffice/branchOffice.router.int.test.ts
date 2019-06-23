@@ -15,7 +15,7 @@ let token : string;
 let user : UserDTO;
 let userRepository: UserRepository;
 
-describe('Country route /api/countries', () => {
+describe('Branch office route /api/branch-offices', () => {
 
   beforeAll(async () => {
     await DatabaseConnection.connect();
@@ -37,12 +37,12 @@ describe('Country route /api/countries', () => {
 
   });
 
-  it('should return countries list', async (done) => {
-    request.get('/api/countries')
+  it('should return branch offices list', async (done) => {
+    request.get('/api/branch-offices')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
       .expect((res: Response) => {
-        if (!('countries' in res.body))   throw new Error('Missing countries key');
+        if (!('branch_offices' in res.body))   throw new Error('Missing branch_offices key');
       })
       .expect(200, done);
   });

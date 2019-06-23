@@ -13,6 +13,7 @@ import PersonRouter from './routes/PersonRouter';
 import { authMiddleware } from './middlewares/authMiddleware';
 import CountryRouter from './routes/CountryRouter';
 import GenderRouter from './routes/GenderRouter';
+import BranchOfficeRouter from './routes/BranchOfficeRouter';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -49,6 +50,9 @@ export default class MainApplication extends Application {
     this.addRouter(new GenderRouter('/genders',
                                     ControllerModule.getGenderController(),
                                     authenticationMiddleware));
+    this.addRouter(new BranchOfficeRouter('/branch-offices',
+                                          ControllerModule.getBranchOfficeController(),
+                                          authenticationMiddleware));
     this.router.use(this.notFound());
   }
 
