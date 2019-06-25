@@ -1,5 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
+// tslint:disable-next-line:class-name
 export class daysOfPayments1560385362686 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<any> {

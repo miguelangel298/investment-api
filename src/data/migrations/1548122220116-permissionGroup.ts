@@ -46,7 +46,7 @@ export class permissionGroup1548122220116 implements MigrationInterface {
           name: 'created_at',
           type: 'timestamp',
           isNullable: false,
-        }
+        },
       ],
     });
 

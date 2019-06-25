@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   OneToMany, OneToOne,
 } from 'typeorm';
-import bcrypt from 'bcrypt-nodejs';
+import bcryptNodejs from 'bcrypt-nodejs';
 import UserStatusEntity from './UserStatusEntity';
 import PersonEntity from './PersonEntity';
 import UserPermissionGroupEntity from './UserPermissionGroupEntity';
@@ -56,9 +56,9 @@ export default class UserEntity {
 
   setPassword(password: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      bcrypt.genSalt(10, (saltErr, salt) => {
+      bcryptNodejs.genSalt(10, (saltErr, salt) => {
         if (saltErr) return reject(saltErr);
-        bcrypt.hash(password, salt, undefined, (hashErr, hash) => {
+        bcryptNodejs.hash(password, salt, undefined, (hashErr, hash) => {
           if (hashErr) return reject(hashErr);
           this.password = hash;
           return resolve();
@@ -70,7 +70,7 @@ export default class UserEntity {
 
   comparePassword(candidatePassword: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
-      bcrypt.compare(candidatePassword, this.password, (err, match) => {
+      bcryptNodejs.compare(candidatePassword, this.password, (err, match) => {
         if (err) return reject(err);
         return resolve(match);
       });

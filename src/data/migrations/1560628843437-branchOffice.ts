@@ -1,5 +1,6 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
+// tslint:disable-next-line:class-name
 export class branchOffice1560628843437 implements MigrationInterface {
 
   private tableCompanyByForeignKey = new TableForeignKey({

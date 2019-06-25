@@ -12,7 +12,7 @@ define(PermissionGroupEntity, async (fake: Faker.FakerStatic, factory: FactorySt
 
   // Get group
   const groupFind = await RepositoryModule.groupRepository().findOne();
-  const group = groupFind ? groupFind : await factory.get(GroupEntity).create()
+  const group = groupFind ? groupFind : await factory.get(GroupEntity).create();
 
   // Get user
   const userFind = await RepositoryModule.userRepository().findOne();

@@ -1,4 +1,5 @@
-import IMunicipalityRepository from '../../data/repository/MunicipalityRepository/IMunicipalityRepository';
+import IMunicipalityRepository
+  from '../../data/repository/MunicipalityRepository/IMunicipalityRepository';
 import MunicipalityDTO from '../../domain/DTOs/MunicipalityDTO';
 import { buildRawError } from '../../application/config/ErrorCode';
 import { GetMunicipalitiesQueryHandler } from '../../domain/queries/GetMunicipalitiesQuery';
