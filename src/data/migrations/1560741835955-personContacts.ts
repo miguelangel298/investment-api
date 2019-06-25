@@ -1,5 +1,6 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
+// tslint:disable-next-line:class-name
 export class personContacts1560741835955 implements MigrationInterface {
 
   private tableContactTypeByForeignKey = new TableForeignKey({

@@ -1,5 +1,6 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
+// tslint:disable-next-line:class-name
 export class UserPermissionGroup1550939783642 implements MigrationInterface {
 
   private tableCreateByForeignKey = new TableForeignKey({
