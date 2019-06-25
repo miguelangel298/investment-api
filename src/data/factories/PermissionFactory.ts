@@ -1,10 +1,12 @@
 import { define } from '../seeders/cli/Seed';
-import PermissionEntity from '../entities/PermissionEntity';
+import PermissionEntity, { permissionUser } from '../entities/PermissionEntity';
+import { FactoryStatic } from './interfaces/Factory';
 
-define(PermissionEntity, async (faker: Faker.FakerStatic): Promise<PermissionEntity> => {
+define(PermissionEntity, async (faker: Faker.FakerStatic, factory: FactoryStatic):
+  Promise<PermissionEntity> => {
   const permission = new PermissionEntity();
-  permission.name = faker.name.jobTitle();
+  permission.name = permissionUser.MANAGE_PERSONS;
   permission.description = faker.name.jobDescriptor();
-  permission.code = faker.random.alphaNumeric(5);
+  permission.code = permissionUser.MANAGE_PERSONS;
   return permission;
 });

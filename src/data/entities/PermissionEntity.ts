@@ -19,3 +19,13 @@ export default class PermissionEntity {
   @OneToMany(() => PermissionGroupEntity, permissionGroup => permissionGroup.permission)
     permissionGroups: PermissionGroupEntity[];
 }
+
+/**
+ * List of permissions that will be used
+ * in the permission verification middleware.
+ */
+export enum permissionUser {
+  MANAGE_PERSONS = 'manage_persons',
+  MANAGE_WALLET = 'manage_wallet',
+
+}

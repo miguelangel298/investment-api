@@ -3,6 +3,7 @@ import GenderEntity from '../../data/entities/GenderEntity';
 import NationalityEntity from '../../data/entities/NationalityEntity';
 import PersonEntity from '../../data/entities/PersonEntity';
 import IPersonRepository from '../../data/repository/PersonRepository/IPersonRepository';
+import UserEntity from '../../data/entities/UserEntity';
 
 export default interface CreatePersonCommand extends ICommand {
   names: string;
@@ -31,6 +32,8 @@ export class CreatePersonCommandHandler implements ICommandHandler {
     person.gender.id = command.genderBy;
     person.nationality = new NationalityEntity();
     person.nationality.id = command.nationalityBy;
+    person.createdBy = new UserEntity();
+    person.createdBy.id = command.createdBy;
     person.createdAt = new Date();
     await this.personRepository.insert(person);
   }
