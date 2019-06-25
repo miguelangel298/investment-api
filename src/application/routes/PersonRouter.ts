@@ -6,6 +6,9 @@ import { buildError, httpCodes } from '../config/ErrorCode';
 import ResponseHandler from '../util/ResponseHandler';
 import CreatePersonCommand from '../../domain/command/CreatePersonCommand';
 import GetPersonByCardIdQuery from '../../domain/queries/GetPersonByCardIdQuery';
+import { RequestWithUser } from '../util/RequestWithUser';
+import { authorizationMiddleware } from '../middlewares/authorizationMiddleware';
+import { permissionUser } from '../../data/entities/PermissionEntity';
 
 export default class PersonRouter extends BaseRouter {
   constructor(route: string,
@@ -17,16 +20,25 @@ export default class PersonRouter extends BaseRouter {
 
   addRoutes(): void {
     this.router.use(this.tokenMiddleware);
-    this.router.post('/', this.create());
+    this.router.post('/', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.create());
     this.router.get('/:cardID', this.show());
   }
 
+  /**
+   * Create a person depending on the parameters received,
+   * it is not allowed to create a person with the same card id or passport.
+   * @params { CreatePersonCommand }
+   * @returns { PersonDTO }
+   */
   create(): RequestHandler {
-    return(req: Request, res: Response) => {
+    return(req: RequestWithUser, res: Response) => {
+      /**
+       * Validate the required fields before calling the controller.
+       */
       const payloadValidate = new PayloadValidator(req);
       payloadValidate.validate(['names',
-        'firstSurname', 'secondSurname', 'birthDate', 'genderBy',
-        'nationalityBy', 'cardId', 'createdBy']);
+        'firstSurname', 'birthDate', 'genderBy',
+        'nationalityBy']);
       const errors = payloadValidate.getErrors();
 
       if (errors) {
@@ -43,7 +55,7 @@ export default class PersonRouter extends BaseRouter {
         passport: req.body.passport,
         genderBy: req.body.genderBy,
         nationalityBy: req.body.nationalityBy,
-        createdBy: req.body.createdBy,
+        createdBy: req.user.id,
       };
 
       this.personController.create(person)
@@ -54,9 +66,9 @@ export default class PersonRouter extends BaseRouter {
   }
 
   /**
-   * Obtain the value sent through the assigned parameter `ip`,
+   * Obtain the value sent through the assigned parameter `cardID`,
    * validate the value received.
-   * @param { GetPersonByCardIdQuery }
+   * @params { GetPersonByCardIdQuery }
    * @Return { PersonDTO }
    */
   show(): RequestHandler {
