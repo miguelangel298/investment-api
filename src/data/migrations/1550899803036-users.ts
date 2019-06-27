@@ -53,7 +53,7 @@ export class users1550899803036 implements MigrationInterface {
         {
           name: 'created_by',
           type: 'integer',
-          isNullable: true,
+          isNullable: false,
         },
         {
           name: 'created_at',
