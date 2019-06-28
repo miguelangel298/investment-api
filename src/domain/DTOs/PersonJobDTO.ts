@@ -29,11 +29,15 @@ export default class PersonJobDTO {
     this.supervisorName = personJobEntity.supervisorName;
     this.supervisorPhone = personJobEntity.supervisorPhone;
     this.currentJob = personJobEntity.currentJob;
-    this.person = new PersonDTO(personJobEntity.person);
-    this.branchOffice = new BranchOfficeDTO(personJobEntity.branchOffice);
-    this.createdBy = new UserDTO(personJobEntity.createdBy);
-    this.createdAt = personJobEntity.createdAt;
 
+    // We validate that each entity has registration to be able to map it.
+    if (personJobEntity.person && personJobEntity.branchOffice && personJobEntity.createdBy) {
+      this.person = new PersonDTO(personJobEntity.person);
+      this.branchOffice = new BranchOfficeDTO(personJobEntity.branchOffice);
+      this.createdBy = new UserDTO(personJobEntity.createdBy);
+      this.createdAt = personJobEntity.createdAt;
+    }
+  // The record must have an update to return this object.
     if (personJobEntity.updatedBy) {
       this.updatedBy = new UserDTO(personJobEntity.updatedBy);
       this.updatedAt = personJobEntity.updatedAt;
