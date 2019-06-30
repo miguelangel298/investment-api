@@ -13,6 +13,7 @@ import BranchOfficeRepository
   from '../../data/repository/BranchOfficeRepository/BranchOfficeRepository';
 import MunicipalityRepository
   from '../../data/repository/MunicipalityRepository/MunicipalityRepository';
+import PersonJobRepository from '../../data/repository/PersonJobRepository/PersonJobRepository';
 
 export default class RepositoryModule {
 
@@ -54,5 +55,9 @@ export default class RepositoryModule {
 
   static municipalityRepository(): MunicipalityRepository {
     return getCustomRepository(MunicipalityRepository);
+  }
+
+  static personJobRepository(): PersonJobRepository {
+    return getCustomRepository(PersonJobRepository);
   }
 }

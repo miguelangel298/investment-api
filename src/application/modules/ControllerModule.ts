@@ -8,6 +8,7 @@ import BranchOfficeController from '../../presentation/controllers/BranchOfficeC
 import CivilStatusController from '../../presentation/controllers/CivilStatusController';
 import ProvinceController from '../../presentation/controllers/ProvinceController';
 import MunicipalityController from '../../presentation/controllers/MunicipalityController';
+import PersonJobController from '../../presentation/controllers/PersonJobController';
 
 export default class ControllerModule {
 
@@ -45,5 +46,9 @@ export default class ControllerModule {
 
   static getMunicipalityController(): MunicipalityController {
     return new MunicipalityController(RepositoryModule.municipalityRepository());
+  }
+
+  static getPersonJobController(): PersonJobController {
+    return new PersonJobController(RepositoryModule.personJobRepository());
   }
 }
