@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import PersonEntity from './PersonEntity';
 import BranchOfficeEntity from './BranchOfficeEntity';
 import UserEntity from './UserEntity';
@@ -6,7 +6,7 @@ import UserEntity from './UserEntity';
 @Entity('person_jobs')
 export default class PersonJobEntity {
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
@@ -46,9 +46,9 @@ export default class PersonJobEntity {
   @JoinColumn({ name: 'updated_by' })
   updatedBy: UserEntity;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @Column({ name: 'created_at' })
   createdAt: Date;
 
-  @CreateDateColumn({ name: 'updated_at' })
+  @Column({ name: 'updated_at' })
   updatedAt: Date;
 }

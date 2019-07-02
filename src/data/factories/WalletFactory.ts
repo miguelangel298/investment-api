@@ -15,8 +15,6 @@ define(WalletEntity, async (faker: Faker.FakerStatic,
   wallet.description = faker.company.catchPhraseDescriptor();
   wallet.representative = user;
   wallet.createdBy = user;
-  wallet.updatedBy = user;
   wallet.createdAt = new Date();
-  wallet.updatedAt = new Date();
   return wallet;
 });

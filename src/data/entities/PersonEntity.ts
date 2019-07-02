@@ -1,11 +1,10 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   ManyToOne,
   JoinColumn,
-  CreateDateColumn,
-  OneToMany} from 'typeorm';
+  OneToMany, PrimaryGeneratedColumn,
+} from 'typeorm';
 import GenderEntity from './GenderEntity';
 import NationalityEntity from './NationalityEntity';
 import UserEntity from './UserEntity';
@@ -46,14 +45,14 @@ export default class PersonEntity {
     @JoinColumn({ name: 'created_by' })
     createdBy: UserEntity;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @Column({ name: 'created_at' })
     createdAt: Date;
 
   @ManyToOne(() => UserEntity, { nullable: true })
     @JoinColumn({ name: 'updated_by' })
     updatedBy: UserEntity;
 
-  @CreateDateColumn({ name: 'updated_at' })
+  @Column({ name: 'updated_at' })
     updatedAt: Date;
 
   @OneToMany(() => UserEntity, user => user.person)

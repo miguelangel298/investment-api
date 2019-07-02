@@ -32,8 +32,7 @@ export default class Factory<T> {
     const entity = await this.make(count);
     const result = await this.repository.insert(entity);
     const insertedId = result.identifiers[0].id;
-    const createdEntity = await this.repository.findOne(insertedId);
-    return createdEntity;
+    return await this.repository.findOne(insertedId);
   }
 
   async make(count?: number): Promise<T> {

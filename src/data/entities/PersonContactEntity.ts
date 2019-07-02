@@ -1,11 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import ContactTypeEntity from './ContactTypeEntity';
 import PersonEntity from './PersonEntity';
 
 @Entity('person_contacts')
 export default class PersonContactEntity {
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
@@ -13,9 +13,6 @@ export default class PersonContactEntity {
 
   @Column()
   ext: number;
-
-  @Column()
-  dependents: number;
 
   @ManyToOne(() => ContactTypeEntity)
   @JoinColumn({ name: 'contact_type_id' })

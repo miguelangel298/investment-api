@@ -1,4 +1,5 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn }
+from 'typeorm';
 import BankEntity from './BankEntity';
 import DayOfPaymentEntity from './DayOfPaymentEntity';
 

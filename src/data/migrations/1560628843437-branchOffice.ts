@@ -81,12 +81,12 @@ export class branchOffice1560628843437 implements MigrationInterface {
         },
         {
           name: 'created_by',
-          type: 'int',
+          type: 'integer',
           isNullable: false,
         },
         {
           name: 'updated_by',
-          type: 'int',
+          type: 'integer',
           isNullable: true,
         },
         {

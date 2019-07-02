@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import ProvinceEntity from './ProvinceEntity';
 import UserEntity from './UserEntity';
 import PersonEntity from './PersonEntity';
@@ -6,7 +6,7 @@ import PersonEntity from './PersonEntity';
 @Entity('person_address')
 export default class PersonAddressEntity {
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
@@ -40,9 +40,9 @@ export default class PersonAddressEntity {
   @JoinColumn({ name: 'updated_by' })
   updatedBy: UserEntity;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @Column({ name: 'created_at' })
   createdAt: Date;
 
-  @CreateDateColumn({ name: 'updated_at', nullable: true })
+  @Column({ name: 'updated_at', nullable: true })
   updatedAt: Date;
 }

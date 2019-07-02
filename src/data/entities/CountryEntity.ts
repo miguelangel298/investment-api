@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn }
+from 'typeorm';
 
 @Entity('countries')
 export default class CountryEntity {

@@ -30,15 +30,14 @@ export default class PersonJobRouter extends BaseRouter {
    */
   create(): RequestHandler {
     return (req: RequestWithUser, res: Response) => {
-      // console.log(`this el request: ${req.body.personJobs}`);
-      /**body
+      /**
        * Validate the required fields before calling th e controller.
        */
       const payloadValidate = new PayloadValidator(req);
       payloadValidate.validate(['position',
         'salary', 'dateAdmission', 'employeeCode',
-        'supervisorName'])
-      const errors = payloadValidate.getErrors('personJobs');
+        'supervisorName']);
+      const errors = payloadValidate.getErrorsArray('personJobs');
 
       if (errors) {
         const responseError = buildError(httpCodes.BAD_REQUEST, errors);

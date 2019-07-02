@@ -15,15 +15,15 @@ define(BranchOfficeEntity, async (faker: Faker.FakerStatic,
   const user = userFind ? userFind : await factory.get(UserEntity).create();
 
   // Get company
-  const companyFind = await RepositoryModule.userRepository().findOne();
+  const companyFind = await RepositoryModule.companyRepository().findOne();
   const company = companyFind ? companyFind : await factory.get(CompanyEntity).create();
 
   // Get wallet
-  const walletFind = await RepositoryModule.userRepository().findOne();
+  const walletFind = await RepositoryModule.walletRepository().findOne();
   const wallet = walletFind ? walletFind : await factory.get(WalletEntity).create();
 
   // Get status
-  const statusFind = await RepositoryModule.userRepository().findOne();
+  const statusFind = await RepositoryModule.branchOfOfficeStatusRepository().findOne();
   const status = statusFind ? statusFind : await factory.get(BranchOfOfficeStatusEntity).create();
 
   // Create branch office
@@ -37,5 +37,7 @@ define(BranchOfficeEntity, async (faker: Faker.FakerStatic,
   branchOffice.wallet = wallet;
   branchOffice.createdBy = user;
   branchOffice.createdAt = new Date();
+
+  console.log(branchOffice);
   return branchOffice;
 });
