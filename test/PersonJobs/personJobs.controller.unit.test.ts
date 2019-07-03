@@ -5,6 +5,7 @@ import PersonJobRepositoryMock from
     '../../src/data/repository/PersonJobRepository/PersonJobRepositoryMock';
 import { AddJobToPersonCommand } from '../../src/domain/command/AddJobToPersonCommand';
 import * as faker from 'faker';
+import GetPersonJobsQuery from '../../src/domain/queries/GetPersonJobsQuery';
 
 let personJobController: PersonJobController;
 let personJobRepository: IPersonJobRepository;
@@ -49,5 +50,16 @@ describe('PersonJob controller, command and query', () => {
     expect(jobs.length).toBeGreaterThan(1);
     expect(jobs[0]).toHaveProperty('id');
     done();
+  });
+
+  it('should return jobs list of a person', async () => {
+    const query: GetPersonJobsQuery = {
+      personId: 1,
+    };
+    // Getting jobs
+    const jobs = await personJobController.show(query);
+
+    expect(jobs.length).toBeGreaterThan(1);
+    expect(jobs[0]).toHaveProperty('id');
   });
 });
