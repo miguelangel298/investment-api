@@ -64,7 +64,6 @@ export default class PersonJobRouter extends BaseRouter {
         .then(response => ResponseHandler.sendResponse(
           res, httpCodes.CREATED, 'personJobs', response))
         .catch(err => ResponseHandler.sendError(res, err));
-
     };
   }
 }

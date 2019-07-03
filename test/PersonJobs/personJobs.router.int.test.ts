@@ -47,9 +47,9 @@ describe('PersonJobs route /api/person-jobs', () => {
           supervisorPhone: faker.phone.phoneNumber(),
           salary: faker.random.number(),
           dateAdmission: new Date(),
-          employeeCode: 'wads',
+          employeeCode: faker.random.alphaNumeric(3),
           currentJob: faker.random.boolean(),
-          person: 1,
+          person: user.person.id,
           branchOffice: 1,
           createdBy: 1,
         },
@@ -59,9 +59,9 @@ describe('PersonJobs route /api/person-jobs', () => {
           supervisorPhone: faker.phone.phoneNumber(),
           salary: faker.random.number(),
           dateAdmission: new Date(),
-          employeeCode: 'wads',
+          employeeCode: faker.random.alphaNumeric(3),
           currentJob: faker.random.boolean(),
-          person: 1,
+          person: user.person.id,
           branchOffice: 1,
           createdBy: 1,
         },
@@ -74,7 +74,45 @@ describe('PersonJobs route /api/person-jobs', () => {
       .expect((res: Response) => {
         if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');
       })
-      .expect(200, done);
+      .expect(201, done);
+  });
+
+  it('should return a bad request due to lack of parameters', async (done) => {
+    const params = {
+      personJobs: [
+        {
+          position: faker.name.jobTitle(),
+          supervisorName: faker.name.findName(),
+          supervisorPhone: faker.phone.phoneNumber(),
+          salary: faker.random.number(),
+          dateAdmission: new Date(),
+          currentJob: faker.random.boolean(),
+          person: user.person.id,
+          branchOffice: 1,
+          createdBy: 1,
+        },
+        {
+          position: faker.name.jobTitle(),
+          supervisorName: faker.name.findName(),
+          supervisorPhone: faker.phone.phoneNumber(),
+          salary: faker.random.number(),
+          dateAdmission: new Date(),
+          currentJob: faker.random.boolean(),
+          person: user.person.id,
+          branchOffice: 1,
+          createdBy: 1,
+        },
+      ],
+    };
+    request.post('/api/person-jobs')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send(params)
+      .expect((res: Response) => {
+        console.log(res.body);
+        if (!('message' in res.body))   throw new Error('Missing message key');
+      })
+      .expect(400, done);
   });
 
 });

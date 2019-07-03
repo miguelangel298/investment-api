@@ -39,9 +39,9 @@ export default class MainApplication extends Application {
 
     const authenticationMiddleware = authMiddleware();
 
+    this.addRouter(new AuthRouter('/auth', ControllerModule.getAuthController()));
     // Create routers
     this.router.get('/', this.homePage());
-    this.addRouter(new AuthRouter('/auth', ControllerModule.getAuthController()));
     this.addRouter(new PersonRouter('/persons',
                                     ControllerModule.getPersonController(),
                                     authenticationMiddleware));

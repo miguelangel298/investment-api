@@ -45,7 +45,9 @@ describe('PersonJob controller, command and query', () => {
       },
     ];
     const jobs = await personJobController.create(newJobs);
-    console.log(jobs);
+
+    expect(jobs.length).toBeGreaterThan(1);
+    expect(jobs[0]).toHaveProperty('id');
     done();
   });
 });
