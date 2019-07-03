@@ -13,6 +13,14 @@ import BranchOfficeRepository
   from '../../data/repository/BranchOfficeRepository/BranchOfficeRepository';
 import MunicipalityRepository
   from '../../data/repository/MunicipalityRepository/MunicipalityRepository';
+import PersonJobRepository from '../../data/repository/PersonJobRepository/PersonJobRepository';
+import CompanyRepository from '../../data/repository/CompanyRepository/CompanyRepository';
+import BranchOfOfficeStatusRepository
+  from '../../data/repository/BranchOfOfficeStatusRepository/BranchOfOfficeStatusRepository';
+import WalletRepository
+  from '../../data/repository/WalletRepository/WalletRepository';
+import PermissionRepository from '../../data/repository/PermissionRepository/PermissionRepository';
+import BankRepository from '../../data/repository/BankRepository/BankRepository';
 
 export default class RepositoryModule {
 
@@ -54,5 +62,29 @@ export default class RepositoryModule {
 
   static municipalityRepository(): MunicipalityRepository {
     return getCustomRepository(MunicipalityRepository);
+  }
+
+  static personJobRepository(): PersonJobRepository {
+    return getCustomRepository(PersonJobRepository);
+  }
+
+  static companyRepository(): CompanyRepository {
+    return getCustomRepository(CompanyRepository);
+  }
+
+  static walletRepository(): WalletRepository {
+    return getCustomRepository(WalletRepository);
+  }
+
+  static branchOfOfficeStatusRepository(): BranchOfOfficeStatusRepository {
+    return getCustomRepository(BranchOfOfficeStatusRepository);
+  }
+
+  static permissionRepository(): PermissionRepository {
+    return getCustomRepository(PermissionRepository);
+  }
+
+  static bankRepository(): BankRepository {
+    return getCustomRepository(BankRepository);
   }
 }

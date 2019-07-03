@@ -1,11 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import CivilStatusEntity from './CivilStatusEntity';
 import PersonEntity from './PersonEntity';
 
 @Entity('additional_information')
 export default class AdditionalInformationEntity {
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ name: 'father_name' })
@@ -13,6 +13,9 @@ export default class AdditionalInformationEntity {
 
   @Column({ name: 'mother_name' })
   motherName: string;
+
+  @Column()
+  dependents: number;
 
   @ManyToOne(() => CivilStatusEntity)
   @JoinColumn({ name: 'civil_status_id' })

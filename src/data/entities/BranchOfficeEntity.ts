@@ -1,4 +1,10 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import CompanyEntity from './CompanyEntity';
 import WalletEntity from './WalletEntity';
 import BranchOfOfficeStatusEntity from './BranchOfOfficeStatusEntity';
@@ -7,7 +13,7 @@ import UserEntity from './UserEntity';
 @Entity('branch_office')
 export default class BranchOfficeEntity {
 
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
     id: number;
 
   @Column()
@@ -42,9 +48,9 @@ export default class BranchOfficeEntity {
   @JoinColumn({ name: 'updated_by' })
     updatedBy: UserEntity;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @Column({ name: 'created_at' })
     createdAt: Date;
 
-  @CreateDateColumn({ name: 'updated_at' })
+  @Column({ name: 'updated_at' })
     updatedAt: Date;
 }

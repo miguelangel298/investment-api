@@ -8,7 +8,6 @@ import UserEntity from '../entities/UserEntity';
 
 define(PermissionGroupEntity, async (fake: Faker.FakerStatic, factory: FactoryStatic):
   Promise<PermissionGroupEntity> => {
-  const entity = new PermissionGroupEntity();
 
   // Get group
   const groupFind = await RepositoryModule.groupRepository().findOne();
@@ -18,7 +17,13 @@ define(PermissionGroupEntity, async (fake: Faker.FakerStatic, factory: FactorySt
   const userFind = await RepositoryModule.userRepository().findOne();
   const user = userFind ? userFind : await factory.get(UserEntity).create();
 
-  entity.permission = await factory.get(PermissionEntity).create();
+  // Get user
+  const permissionFind = await RepositoryModule.permissionRepository().findOne();
+  const permission = permissionFind ? permissionFind : await factory.get(PermissionEntity).create();
+
+  const entity = new PermissionGroupEntity();
+
+  entity.permission = permission;
   entity.group = group;
   entity.createdAt = new Date();
   entity.createdBy = user;

@@ -17,6 +17,7 @@ import BranchOfficeRouter from './routes/BranchOfficeRouter';
 import CivilStatusRouter from './routes/CivilStatusRouter';
 import ProvinceRouter from './routes/ProvinceRouter';
 import MunicipalityRouter from './routes/MunicipalityRouter';
+import PersonJobRouter from './routes/PersonJobRouter';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -38,9 +39,9 @@ export default class MainApplication extends Application {
 
     const authenticationMiddleware = authMiddleware();
 
+    this.addRouter(new AuthRouter('/auth', ControllerModule.getAuthController()));
     // Create routers
     this.router.get('/', this.homePage());
-    this.addRouter(new AuthRouter('/auth', ControllerModule.getAuthController()));
     this.addRouter(new PersonRouter('/persons',
                                     ControllerModule.getPersonController(),
                                     authenticationMiddleware));
@@ -65,6 +66,9 @@ export default class MainApplication extends Application {
     this.addRouter(new MunicipalityRouter('/municipalities',
                                           ControllerModule.getMunicipalityController(),
                                           authenticationMiddleware));
+    this.addRouter(new PersonJobRouter('/person-jobs',
+                                       ControllerModule.getPersonJobController(),
+                                       authenticationMiddleware));
     this.router.use(this.notFound());
   }
 

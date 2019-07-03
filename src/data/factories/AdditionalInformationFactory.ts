@@ -23,6 +23,7 @@ define(AdditionalInformationEntity, async (faker: Faker.FakerStatic,
   additionalInformation.motherName = faker.name.firstName();
   additionalInformation.fatherName = faker.name.firstName();
   additionalInformation.civilStatus = civilStatus;
+  additionalInformation.dependents = faker.random.number({ max: 10 });
   additionalInformation.person = person;
   return additionalInformation;
 });

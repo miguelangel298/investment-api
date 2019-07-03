@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  ManyToOne,
+  JoinColumn,
+  Column,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import GroupEntity from './GroupEntity';
 import PermissionEntity from './PermissionEntity';
 import UserEntity from './UserEntity';
@@ -17,7 +23,7 @@ export default class PermissionGroupEntity {
     @JoinColumn({ name: 'permission_id' })
     permission: PermissionEntity;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @Column({ name: 'created_at' })
   createdAt: Date;
 
   @ManyToOne(() => UserEntity)
