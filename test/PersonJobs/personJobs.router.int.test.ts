@@ -115,4 +115,13 @@ describe('PersonJobs route /api/person-jobs', () => {
       .expect(400, done);
   });
 
+  it('should return jobs list of a person', async (done) => {
+    request.get(`/api/person-jobs/${user.person.id}`)
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .expect((res: Response) => {
+        if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');
+      })
+      .expect(200, done);
+  });
 });

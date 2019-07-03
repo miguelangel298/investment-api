@@ -37,4 +37,18 @@ export default class PersonJobController {
       throw buildRawError(e);
     }
   }
+
+  /**
+   * The instance of the query to return all the job information.
+   * @param query: { GetPersonJobsQuery }
+   * @returns { PersonJobDTO[] }
+   */
+  async show(query: GetPersonJobsQuery): Promise<PersonJobDTO[]> {
+    try {
+      const getPersonJobsQueryHandler = new GetPersonJobsQueryHandler(this.personJobRepository);
+      return await getPersonJobsQueryHandler.handle(query);
+    } catch (e) {
+      throw buildRawError(e);
+    }
+  }
 }
