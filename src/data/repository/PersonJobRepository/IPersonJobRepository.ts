@@ -1,5 +1,11 @@
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { FindConditions, FindManyOptions, FindOneOptions, InsertResult, SaveOptions }
+import { FindConditions,
+  FindManyOptions,
+  FindOneOptions,
+  InsertResult,
+  ObjectID,
+  SaveOptions,
+  UpdateResult }
   from 'typeorm';
 import PersonJobEntity from '../../entities/PersonJobEntity';
 
@@ -14,5 +20,10 @@ export default interface IPersonJobRepository {
 
   find(conditions?: FindConditions<PersonJobEntity> | FindManyOptions<PersonJobEntity>):
     Promise<PersonJobEntity[]>;
+
+  update(criteria: string | string[] | number | number[] | Date | Date[] | ObjectID |
+    ObjectID[] | FindConditions<PersonJobEntity>,
+         partialEntity: QueryDeepPartialEntity<PersonJobEntity>,
+         options?: SaveOptions): Promise<UpdateResult>;
 
 }

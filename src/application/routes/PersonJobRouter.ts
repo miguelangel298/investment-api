@@ -9,6 +9,7 @@ import { RequestWithUser } from '../util/RequestWithUser';
 import { authorizationMiddleware } from '../middlewares/authorizationMiddleware';
 import { permissionUser } from '../../data/entities/PermissionEntity';
 import GetPersonJobsQuery from '../../domain/queries/GetPersonJobsQuery';
+import UpdateJobsToPersonCommand from '../../domain/command/UpdateJobsToPersonCommand';
 
 export default class PersonJobRouter extends BaseRouter {
   constructor(route: string,
@@ -22,6 +23,7 @@ export default class PersonJobRouter extends BaseRouter {
     this.router.use(this.tokenMiddleware);
     this.router.post('/', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.create());
     this.router.get('/:id', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.show());
+    this.router.put('/', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.update());
   }
 
   /**
@@ -83,6 +85,52 @@ export default class PersonJobRouter extends BaseRouter {
       this.personJobController.show(getJobsPerson)
         .then(response => ResponseHandler.sendResponse(
           res, httpCodes.OK, 'personJobs', response))
+        .catch(err => ResponseHandler.sendError(res, err));
+    };
+  }
+
+  /**
+   * This method is for update job information to a person.
+   * All fields are required.
+   * @params { UpdateJobsToPersonCommand[] }
+   * @returns { PersonJobDTO[] }
+   */
+  update(): RequestHandler {
+    return (req: RequestWithUser, res: Response) => {
+      /**
+       * Validate the required fields before calling th e controller.
+       */
+      const payloadValidate = new PayloadValidator(req);
+      payloadValidate.validate(['position',
+        'salary', 'dateAdmission', 'employeeCode',
+        'supervisorName', 'supervisorPhone', 'currentJob', 'person', 'branchOffice']);
+      const errors = payloadValidate.getErrorsArray('personJobs');
+
+      if (errors) {
+        const responseError = buildError(httpCodes.BAD_REQUEST, errors);
+        return ResponseHandler.sendError(res, responseError);
+      }
+
+      const updatedJobs: UpdateJobsToPersonCommand[] =
+        req.body.personJobs.map((job: UpdateJobsToPersonCommand) => {
+          const updatedJob: UpdateJobsToPersonCommand = { } as UpdateJobsToPersonCommand;
+          updatedJob.id = job.id;
+          updatedJob.position = job.position;
+          updatedJob.salary = job.salary;
+          updatedJob.dateAdmission = job.dateAdmission;
+          updatedJob.employeeCode = job.employeeCode;
+          updatedJob.supervisorName = job.supervisorName;
+          updatedJob.supervisorPhone = job.supervisorPhone;
+          updatedJob.currentJob = job.currentJob;
+          updatedJob.person = job.person;
+          updatedJob.branchOffice = job.branchOffice;
+          updatedJob.updatedBy = req.user.id;
+          return updatedJob;
+        });
+
+      this.personJobController.update(updatedJobs)
+        .then(response => ResponseHandler.sendResponse(
+          res, httpCodes.CREATED, 'personJobs', response))
         .catch(err => ResponseHandler.sendError(res, err));
     };
   }

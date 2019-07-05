@@ -1,5 +1,11 @@
 import IPersonJobRepository from './IPersonJobRepository';
-import { FindConditions, FindManyOptions, FindOneOptions, InsertResult, SaveOptions }
+import { FindConditions,
+  FindManyOptions,
+  FindOneOptions,
+  InsertResult,
+  ObjectID,
+  SaveOptions,
+  UpdateResult }
   from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import PersonJobEntity from '../../entities/PersonJobEntity';
@@ -36,6 +42,13 @@ export default class PersonJobRepositoryMock implements IPersonJobRepository {
   async find(conditions?: FindConditions<PersonJobEntity> | FindManyOptions<PersonJobEntity>):
     Promise<PersonJobEntity[]> {
     return PersonJobRepositoryMock.entities;
+  }
+
+  async update(criteria: string | string[] | number | number[] | Date | Date[] | ObjectID |
+                 ObjectID[] | FindConditions<PersonJobEntity>,
+               partialEntity: QueryDeepPartialEntity<PersonJobEntity>,
+               options?: SaveOptions): Promise<UpdateResult> {
+    return undefined;
   }
 
 }
