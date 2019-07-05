@@ -48,7 +48,7 @@ describe('PersonJobs route /api/person-jobs', () => {
           salary: faker.random.number(),
           dateAdmission: new Date(),
           employeeCode: faker.random.alphaNumeric(3),
-          currentJob: faker.random.boolean(),
+          currentJob: true,
           person: user.person.id,
           branchOffice: 1,
           createdBy: 1,
@@ -60,7 +60,7 @@ describe('PersonJobs route /api/person-jobs', () => {
           salary: faker.random.number(),
           dateAdmission: new Date(),
           employeeCode: faker.random.alphaNumeric(3),
-          currentJob: faker.random.boolean(),
+          currentJob: true,
           person: user.person.id,
           branchOffice: 1,
           createdBy: 1,
@@ -72,6 +72,7 @@ describe('PersonJobs route /api/person-jobs', () => {
       .set('Authorization', `Bearer ${token}`)
       .send(params)
       .expect((res: Response) => {
+        console.log(res.body);
         if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');
       })
       .expect(201, done);
@@ -123,5 +124,32 @@ describe('PersonJobs route /api/person-jobs', () => {
         if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');
       })
       .expect(200, done);
+  });
+
+  it('should update job information to person', async (done) => {
+    const params: any = {
+      personJobs: [
+        {
+          id: 1,
+          position: faker.name.jobTitle(),
+          supervisorName: faker.name.findName(),
+          supervisorPhone: faker.phone.phoneNumber(),
+          salary: faker.random.number(),
+          dateAdmission: new Date(),
+          employeeCode: faker.random.alphaNumeric(3),
+          currentJob: faker.random.boolean(),
+          person: user.person.id,
+          branchOffice: 1,
+        },
+      ],
+    };
+    request.put('/api/person-jobs')
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${token}`)
+      .send(params)
+      .expect((res: any) => {
+        if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');
+      })
+      .expect(201, done);
   });
 });
