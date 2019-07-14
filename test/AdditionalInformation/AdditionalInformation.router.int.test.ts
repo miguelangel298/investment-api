@@ -67,4 +67,41 @@ describe('Additional information route /api/additional-information', () => {
       .expect(200, done);
   });
 
+  it('should update of additional information to person', async (done) => {
+    const newAdditionalInformation = {
+      fatherName: faker.name.firstName(),
+      motherName: faker.name.firstName(2),
+      civilStatus: 1,
+      dependents: faker.random.number(1),
+    };
+
+    request.put(`/api/additional-information/${user.user.person.id}`)
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${user.token}`)
+      .send(newAdditionalInformation)
+      .expect((res: Response) => {
+        if (!('additionalInformation' in res.body)) {
+          throw new Error('Missing additionalInformation key');
+        }
+      })
+      .expect(201, done);
+  });
+
+  it('should return a bad request due to lack of parameters update additional information',
+     (done) => {
+       const newAdditionalInformation = {
+         motherName: faker.name.firstName(2),
+       };
+
+       request.put(`/api/additional-information/${user.user.person.id}`)
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${user.token}`)
+      .send(newAdditionalInformation)
+      .expect((res: Response) => {
+        if (!('message' in res.body)) {
+          throw new Error('Missing message key');
+        }
+      })
+      .expect(400, done);
+     });
 });
