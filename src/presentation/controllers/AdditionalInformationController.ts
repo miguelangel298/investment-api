@@ -38,4 +38,22 @@ export default class AdditionalInformationController {
       throw buildRawError(e);
     }
   }
+
+  /**
+   * Get the additional information of a persona.
+   * @params { GetAdditionalInformationQuery }
+   * @returns { AdditionalInformationDTO }
+   */
+  async show(params: GetAdditionalInformationQuery): Promise<AdditionalInformationDTO> {
+    try {
+      const getAdditionalInformationQuery: GetAdditionalInformationQuery = {
+        person: params.person,
+      };
+      const getAdditionalInformationQueryHandler =
+        new GetAdditionalInformationQueryHandler(this.additionalInformationRepository);
+      return await getAdditionalInformationQueryHandler.handle(getAdditionalInformationQuery);
+    } catch (e) {
+      throw buildRawError(e);
+    }
+  }
 }
