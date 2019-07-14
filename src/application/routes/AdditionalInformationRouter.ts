@@ -9,6 +9,7 @@ import CreateAdditionalInformationCommand from
     '../../domain/command/CreateAdditionalInformationCommand';
 import { authorizationMiddleware } from '../middlewares/authorizationMiddleware';
 import { permissionUser } from '../../data/entities/PermissionEntity';
+import GetAdditionalInformationQuery from '../../domain/queries/GetAdditionalInformationQuery';
 
 export default class AdditionalInformationRouter extends BaseRouter {
   constructor(route: string,
@@ -21,6 +22,7 @@ export default class AdditionalInformationRouter extends BaseRouter {
   addRoutes(): void {
     this.router.use(this.tokenMiddleware);
     this.router.post('/', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.create());
+    this.router.get('/:id', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.show());
   }
 
   /**
@@ -55,6 +57,25 @@ export default class AdditionalInformationRouter extends BaseRouter {
       this.additionalInformationController.create(additionalInformation)
         .then(response =>
           ResponseHandler.sendResponse(res, httpCodes.CREATED, 'additionalInformation', response))
+        .catch(err => ResponseHandler.sendError(res, err));
+    };
+  }
+
+  /**
+   * Get the additional information of a persona.
+   * @params { GetAdditionalInformationQuery }
+   * @return { AdditionalInformationDTO }
+   */
+  show(): RequestHandler {
+    return (req: Request, res: Response) => {
+
+      const getAdditionalInformationQuery: GetAdditionalInformationQuery = {
+        person: req.params.id,
+      };
+
+      this.additionalInformationController.show(getAdditionalInformationQuery)
+        .then(response => ResponseHandler.sendResponse(
+          res, httpCodes.OK, 'additionalInformation', response))
         .catch(err => ResponseHandler.sendError(res, err));
     };
   }

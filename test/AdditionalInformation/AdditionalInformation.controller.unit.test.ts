@@ -4,6 +4,7 @@ import AdditionalInformationRepositoryMock from
 import AdditionalInformationController from
     '../../src/presentation/controllers/AdditionalInformationController';
 import * as faker from 'faker';
+import GetAdditionalInformationQuery from '../../src/domain/queries/GetAdditionalInformationQuery';
 
 let additionalInformationRepository: AdditionalInformationRepositoryMock;
 let additionalInformationController: AdditionalInformationController;
@@ -32,4 +33,13 @@ describe('Additional information controller, query and command', async () => {
     expect(additionalInformation).toHaveProperty('id');
   });
 
+  it('should return additional information of a person', async () => {
+    const query: GetAdditionalInformationQuery = {
+      person: faker.random.number(1),
+    };
+    // Get information.
+    const additionalInformation = await additionalInformationController.show(query);
+
+    expect(additionalInformation).toHaveProperty('id');
+  });
 });

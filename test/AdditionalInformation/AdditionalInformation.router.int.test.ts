@@ -54,4 +54,17 @@ describe('Additional information route /api/additional-information', () => {
       .expect(400, done);
   });
 
+  it('should return additional information of a person', (done) => {
+
+    request.get(`/api/additional-information/${user.user.person.id}`)
+      .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${user.token}`)
+      .expect((res: Response) => {
+        if (!('additionalInformation' in res.body)) {
+          throw new Error('Missing additionalInformation key');
+        }
+      })
+      .expect(200, done);
+  });
+
 });
