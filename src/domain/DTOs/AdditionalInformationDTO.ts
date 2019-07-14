@@ -7,15 +7,22 @@ export default class AdditionalInformationDTO {
   id: number;
   fatherName: string;
   motherName: string;
+  dependents: number;
   civilStatus: CivilStatusDTO;
   person: PersonDTO;
 
-  constructor(protected entity: AdditionalInformationEntity) {
+  constructor(entity: AdditionalInformationEntity) {
 
     this.id = entity.id;
     this.motherName = entity.motherName;
     this.fatherName = entity.fatherName;
-    this.civilStatus = new CivilStatusDTO(entity.civilStatus);
-    this.person = new PersonDTO(entity.person);
+    this.dependents = entity.dependents;
+
+    if (entity.civilStatus) {
+      this.civilStatus = new CivilStatusDTO(entity.civilStatus);
+    }
+    if (entity.person) {
+      this.person = new PersonDTO(entity.person);
+    }
   }
 }

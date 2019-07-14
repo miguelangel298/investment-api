@@ -1,4 +1,5 @@
-import CountryRepositoryMock from '../../src/data/repository/CountryRepository/CountryRepositoryMock';
+import CountryRepositoryMock
+  from '../../src/data/repository/CountryRepository/CountryRepositoryMock';
 import CountryController from '../../src/presentation/controllers/CountryController';
 
 let countryRepository: CountryRepositoryMock;
