@@ -1,47 +1,24 @@
 import * as faker from 'faker';
 import dotenv from 'dotenv';
 import CreatePersonCommand from '../../src/domain/command/CreatePersonCommand';
-import DatabaseConnection from '../../src/data/DatabaseConnection';
 import PersonRepository from '../../src/data/repository/PersonRepository/PersonRepository';
 import { getCustomRepository } from 'typeorm';
-import UserDTO from '../../src/domain/DTOs/UserDTO';
-import { TokenService } from '../../src/application/util/TokenService';
-import getPermissions from '../../src/application/util/getPermissions';
-import { AuthUser, TokenData } from '../../src/application/config/TokenConfig';
-import UserRepository from '../../src/data/repository/UserRepository/UserRepository';
-import { GetUserLoginQueryHandler } from '../../src/domain/queries/GetUserLoginQuery';
+import ConfigTest from '../ConfigTest/ConfigTest';
+import { TokenData } from '../../src/application/config/TokenConfig';
 
 dotenv.config();
 let request = require('supertest');
 request = request(`http://localhost:${process.env.PORT}`);
 let person: any;
 let personRepository: PersonRepository;
-let token : string;
-let user : UserDTO;
-let userRepository: UserRepository;
+let user : TokenData;
 
 describe('Person router', () => {
 
   beforeAll(async () => {
-    await DatabaseConnection.connect();
+    user = await ConfigTest.getUserAdmin();
     personRepository = await getCustomRepository(PersonRepository);
-    userRepository = getCustomRepository(UserRepository);
     person = await personRepository.findOne();
-    const queryHandler = new GetUserLoginQueryHandler(userRepository);
-    user = await queryHandler.handle({ username: 'admin' });
-
-    const authUser: AuthUser = {
-      id: user.id,
-      role: user.role.name,
-      fullName: `${user.person.names} ${user.person.firstSurname} ${user.person.secondSurname}`,
-      person: { id:user.person.id },
-      permission: getPermissions(user),
-    };
-    const tokenData: TokenData = TokenService.createToken(authUser,
-                                                          process.env.SECRET_KEY,
-                                                          process.env.TOKEN_EXPIRESIN);
-    token = tokenData.token;
-
   });
 
   it('should create a new person', async (done) => {
@@ -53,12 +30,12 @@ describe('Person router', () => {
       cardId: faker.random.number({ min: 112342125, max: 92501647964 }),
       genderBy: 1,
       nationalityBy: 1,
-      createdBy: 1,
+      createdBy: user.user.person.id,
     };
 
     request.post('/api/persons')
       .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.token}`)
       .send(person)
       .expect((res: Response) => {
         if (!('persons' in res.body))   throw new Error('Missing persons key');
@@ -73,12 +50,12 @@ describe('Person router', () => {
       birthDate: new Date(),
       genderBy: 1,
       nationalityBy: 1,
-      createdBy: 1,
+      createdBy: user.user.person.id,
     };
 
     request.post('/api/persons')
       .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.token}`)
       .send(person)
       .expect((res: Response) => {
         if (!('message' in res.body))   throw new Error('Missing message key');
@@ -91,7 +68,7 @@ describe('Person router', () => {
     request
       .get(`/api/persons/${person.cardId}`)
       .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.token}`)
       .expect((res: any) => {
         if (!('persons' in res.body))   throw new Error('Missing persons key');
         if (!('id' in res.body.persons))   throw new Error('Missing id key');
@@ -103,8 +80,7 @@ describe('Person router', () => {
      async (done) => {
        request.post('/api/persons/')
          .set('Accept', 'application/json')
-         .set('Authorization', `Bearer ${token}`)
-         .send(person)
+         .set('Authorization', `Bearer ${user.token}`)
          .expect((res: Response) => {
            if (!('message' in res.body))   throw new Error('Missing message key');
          })

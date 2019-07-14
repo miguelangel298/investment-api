@@ -18,6 +18,7 @@ import CivilStatusRouter from './routes/CivilStatusRouter';
 import ProvinceRouter from './routes/ProvinceRouter';
 import MunicipalityRouter from './routes/MunicipalityRouter';
 import PersonJobRouter from './routes/PersonJobRouter';
+import AdditionalInformationRouter from './routes/AdditionalInformationRouter';
 
 export default class MainApplication extends Application {
   constructor(route: string, app: express.Application) {
@@ -69,6 +70,10 @@ export default class MainApplication extends Application {
     this.addRouter(new PersonJobRouter('/person-jobs',
                                        ControllerModule.getPersonJobController(),
                                        authenticationMiddleware));
+    this.addRouter(new AdditionalInformationRouter(
+      '/additional-information',
+      ControllerModule.getAdditionalInformationController(),
+      authenticationMiddleware));
     this.router.use(this.notFound());
   }
 

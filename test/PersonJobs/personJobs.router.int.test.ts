@@ -1,41 +1,17 @@
 import dotenv from 'dotenv';
-import UserDTO from '../../src/domain/DTOs/UserDTO';
-import UserRepository from '../../src/data/repository/UserRepository/UserRepository';
-import DatabaseConnection from '../../src/data/DatabaseConnection';
-import { getCustomRepository } from 'typeorm';
-import { GetUserLoginQueryHandler } from '../../src/domain/queries/GetUserLoginQuery';
-import { AuthUser, TokenData } from '../../src/application/config/TokenConfig';
-import getPermissions from '../../src/application/util/getPermissions';
-import { TokenService } from '../../src/application/util/TokenService';
 import * as faker from 'faker';
+import ConfigTest from '../ConfigTest/ConfigTest';
+import { TokenData } from '../../src/application/config/TokenConfig';
 
 dotenv.config();
 let request = require('supertest');
 request = request(`http://localhost:${process.env.PORT}`);
-let token : string;
-let user : UserDTO;
-let userRepository: UserRepository;
+let user: TokenData;
 
 describe('PersonJobs route /api/person-jobs', () => {
 
   beforeAll(async () => {
-    await DatabaseConnection.connect();
-    userRepository = getCustomRepository(UserRepository);
-    const queryHandler = new GetUserLoginQueryHandler(userRepository);
-    user = await queryHandler.handle({ username: 'admin' });
-
-    const authUser: AuthUser = {
-      id: user.id,
-      role: user.role.name,
-      fullName: `${user.person.names} ${user.person.firstSurname} ${user.person.secondSurname}`,
-      person: { id:user.person.id },
-      permission: getPermissions(user),
-    };
-    const tokenData: TokenData = TokenService.createToken(authUser,
-                                                          process.env.SECRET_KEY,
-                                                          process.env.TOKEN_EXPIRESIN);
-    token = tokenData.token;
-
+    user = await ConfigTest.getUserAdmin();
   });
 
   it('should add new job information to person', async (done) => {
@@ -49,9 +25,9 @@ describe('PersonJobs route /api/person-jobs', () => {
           dateAdmission: new Date(),
           employeeCode: faker.random.alphaNumeric(3),
           currentJob: true,
-          person: user.person.id,
+          person: user.user.person.id,
           branchOffice: 1,
-          createdBy: 1,
+          createdBy: user.user.id,
         },
         {
           position: faker.name.jobTitle(),
@@ -61,18 +37,17 @@ describe('PersonJobs route /api/person-jobs', () => {
           dateAdmission: new Date(),
           employeeCode: faker.random.alphaNumeric(3),
           currentJob: true,
-          person: user.person.id,
+          person: user.user.person.id,
           branchOffice: 1,
-          createdBy: 1,
+          createdBy: user.user.id,
         },
       ],
     };
     request.post('/api/person-jobs')
       .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.token}`)
       .send(params)
       .expect((res: Response) => {
-        console.log(res.body);
         if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');
       })
       .expect(201, done);
@@ -88,9 +63,9 @@ describe('PersonJobs route /api/person-jobs', () => {
           salary: faker.random.number(),
           dateAdmission: new Date(),
           currentJob: faker.random.boolean(),
-          person: user.person.id,
+          person: user.user.person.id,
           branchOffice: 1,
-          createdBy: 1,
+          createdBy: user.user.id,
         },
         {
           position: faker.name.jobTitle(),
@@ -99,27 +74,26 @@ describe('PersonJobs route /api/person-jobs', () => {
           salary: faker.random.number(),
           dateAdmission: new Date(),
           currentJob: faker.random.boolean(),
-          person: user.person.id,
+          person: user.user.person.id,
           branchOffice: 1,
-          createdBy: 1,
+          createdBy: user.user.id,
         },
       ],
     };
     request.post('/api/person-jobs')
       .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.token}`)
       .send(params)
       .expect((res: Response) => {
-        console.log(res.body);
         if (!('message' in res.body))   throw new Error('Missing message key');
       })
       .expect(400, done);
   });
 
   it('should return jobs list of a person', async (done) => {
-    request.get(`/api/person-jobs/${user.person.id}`)
+    request.get(`/api/person-jobs/${user.user.person.id}`)
       .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.token}`)
       .expect((res: Response) => {
         if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');
       })
@@ -138,14 +112,14 @@ describe('PersonJobs route /api/person-jobs', () => {
           dateAdmission: new Date(),
           employeeCode: faker.random.alphaNumeric(3),
           currentJob: faker.random.boolean(),
-          person: user.person.id,
+          person: user.user.person.id,
           branchOffice: 1,
         },
       ],
     };
     request.put('/api/person-jobs')
       .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${user.token}`)
       .send(params)
       .expect((res: any) => {
         if (!('personJobs' in res.body))   throw new Error('Missing personJobs key');

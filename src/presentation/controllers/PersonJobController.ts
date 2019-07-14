@@ -65,7 +65,6 @@ export default class PersonJobController {
       const updateJobsPersonCommandHandler =
         new UpdateJobsToPersonCommandHandler(this.personJobRepository);
 
-      console.log(params);
       await updateJobsPersonCommandHandler.handle(params);
 
       /**

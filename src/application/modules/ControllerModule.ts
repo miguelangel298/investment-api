@@ -9,6 +9,8 @@ import CivilStatusController from '../../presentation/controllers/CivilStatusCon
 import ProvinceController from '../../presentation/controllers/ProvinceController';
 import MunicipalityController from '../../presentation/controllers/MunicipalityController';
 import PersonJobController from '../../presentation/controllers/PersonJobController';
+import AdditionalInformationController
+  from '../../presentation/controllers/AdditionalInformationController';
 
 export default class ControllerModule {
 
@@ -50,5 +52,9 @@ export default class ControllerModule {
 
   static getPersonJobController(): PersonJobController {
     return new PersonJobController(RepositoryModule.personJobRepository());
+  }
+
+  static getAdditionalInformationController(): AdditionalInformationController {
+    return new AdditionalInformationController(RepositoryModule.additionalInformationRepository());
   }
 }
