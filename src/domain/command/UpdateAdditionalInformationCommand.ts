@@ -2,34 +2,35 @@ import { ICommand, ICommandHandler } from './base/ICommand';
 import IAdditionalInformationRepository
   from '../../data/repository/AdditionalInformationRepository/IAdditionalInformationRepository';
 import AdditionalInformationEntity from '../../data/entities/AdditionalInformationEntity';
-import PersonEntity from '../../data/entities/PersonEntity';
 import CivilStatusEntity from '../../data/entities/CivilStatusEntity';
+import PersonEntity from '../../data/entities/PersonEntity';
 
-export default interface CreateAdditionalInformationCommand extends ICommand {
+export default interface UpdateAdditionalInformationCommand extends ICommand {
+  person: number;
   fatherName: string;
   motherName: string;
   civilStatus: number;
   dependents: number;
-  person: number;
 }
 
 /**
- * This command is for add additional information to a person.
- * All fields are required.
- * @param { CreateAdditionalInformationCommand }
+ * This command is for update additional information to a person.
+ * @param { UpdateAdditionalInformationCommand }
  */
-export class CreateAdditionalInformationCommandHandler implements ICommandHandler {
-  constructor(protected informationAdditionalRepository: IAdditionalInformationRepository) { }
+export class UpdateAdditionalInformationCommandHandler implements ICommandHandler {
+  constructor(protected additionalInformationRepository: IAdditionalInformationRepository) { }
 
-  async handle(command: CreateAdditionalInformationCommand): Promise<void> {
+  async handle(command: UpdateAdditionalInformationCommand): Promise<void> {
     const additionalInformation = new AdditionalInformationEntity();
     additionalInformation.motherName = command.motherName;
     additionalInformation.fatherName = command.fatherName;
-    additionalInformation.person = new PersonEntity();
-    additionalInformation.person.id = command.person;
     additionalInformation.civilStatus = new CivilStatusEntity();
     additionalInformation.civilStatus.id = command.civilStatus;
     additionalInformation.dependents = command.dependents;
-    await this.informationAdditionalRepository.insert(additionalInformation);
+
+    // We perform the update looking for the record of the person.
+    const person = new PersonEntity();
+    person.id = command.person;
+    await this.additionalInformationRepository.update(person, additionalInformation);
   }
 }

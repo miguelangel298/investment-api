@@ -10,6 +10,8 @@ import CreateAdditionalInformationCommand from
 import { authorizationMiddleware } from '../middlewares/authorizationMiddleware';
 import { permissionUser } from '../../data/entities/PermissionEntity';
 import GetAdditionalInformationQuery from '../../domain/queries/GetAdditionalInformationQuery';
+import UpdateAdditionalInformationCommand
+  from '../../domain/command/UpdateAdditionalInformationCommand';
 
 export default class AdditionalInformationRouter extends BaseRouter {
   constructor(route: string,
@@ -23,6 +25,7 @@ export default class AdditionalInformationRouter extends BaseRouter {
     this.router.use(this.tokenMiddleware);
     this.router.post('/', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.create());
     this.router.get('/:id', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.show());
+    this.router.put('/:id', authorizationMiddleware(permissionUser.MANAGE_PERSONS), this.update());
   }
 
   /**
@@ -76,6 +79,41 @@ export default class AdditionalInformationRouter extends BaseRouter {
       this.additionalInformationController.show(getAdditionalInformationQuery)
         .then(response => ResponseHandler.sendResponse(
           res, httpCodes.OK, 'additionalInformation', response))
+        .catch(err => ResponseHandler.sendError(res, err));
+    };
+  }
+
+  /**
+   * This method is for update job information to a person.
+   * @params { UpdateAdditionalInformationCommand }
+   * @return { AdditionalInformationDTO }
+   */
+  update(): RequestHandler {
+    return (req: Request, res: Response) => {
+      /**
+       * Validate the required fields before calling the controller.
+       */
+      const payloadValidate = new PayloadValidator(req);
+      payloadValidate.validate(['fatherName',
+        'motherName', 'civilStatus', 'dependents']);
+      const errors = payloadValidate.getErrors();
+
+      if (errors) {
+        const responseError = buildError(httpCodes.BAD_REQUEST, errors);
+        return ResponseHandler.sendError(res, responseError);
+      }
+
+      const additionalInformation: UpdateAdditionalInformationCommand = {
+        fatherName: req.body.fatherName,
+        motherName: req.body.motherName,
+        civilStatus: req.body.civilStatus,
+        dependents: req.body.dependents,
+        person: req.params.id,
+      };
+
+      this.additionalInformationController.update(additionalInformation)
+        .then(response => ResponseHandler.sendResponse(
+          res, httpCodes.CREATED, 'additionalInformation', response))
         .catch(err => ResponseHandler.sendError(res, err));
     };
   }
