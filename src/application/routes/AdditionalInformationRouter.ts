@@ -12,8 +12,8 @@ import { permissionUser } from '../../data/entities/PermissionEntity';
 
 export default class AdditionalInformationRouter extends BaseRouter {
   constructor(route: string,
-              protected tokenMiddleware: RequestHandler,
-              protected additionalInformationController: AdditionalInformationController) {
+              protected additionalInformationController: AdditionalInformationController,
+              protected tokenMiddleware: RequestHandler) {
     super(route, false);
     this.addRoutes();
   }

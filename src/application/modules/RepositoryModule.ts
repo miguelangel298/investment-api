@@ -21,6 +21,8 @@ import WalletRepository
   from '../../data/repository/WalletRepository/WalletRepository';
 import PermissionRepository from '../../data/repository/PermissionRepository/PermissionRepository';
 import BankRepository from '../../data/repository/BankRepository/BankRepository';
+import AdditionalInformationRepository
+  from '../../data/repository/AdditionalInformationRepository/AdditionalInformationRepository';
 
 export default class RepositoryModule {
 
@@ -86,5 +88,9 @@ export default class RepositoryModule {
 
   static bankRepository(): BankRepository {
     return getCustomRepository(BankRepository);
+  }
+
+  static additionalInformationRepository(): AdditionalInformationRepository {
+    return getCustomRepository(AdditionalInformationRepository);
   }
 }

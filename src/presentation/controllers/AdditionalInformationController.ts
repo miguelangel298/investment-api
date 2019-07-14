@@ -5,7 +5,8 @@ import { buildRawError } from '../../application/config/ErrorCode';
 import CreateAdditionalInformationCommand
   , { CreateAdditionalInformationCommandHandler }
   from '../../domain/command/CreateAdditionalInformationCommand';
-import GetAdditionalInformationQuery, { GetAdditionalInformationQueryHandler } from '../../domain/queries/GetAdditionalInformationQuery';
+import GetAdditionalInformationQuery,
+{ GetAdditionalInformationQueryHandler } from '../../domain/queries/GetAdditionalInformationQuery';
 
 export default class AdditionalInformationController {
   constructor(protected additionalInformationRepository: IAdditionalInformationRepository) { }
