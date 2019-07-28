@@ -23,6 +23,8 @@ import PermissionRepository from '../../data/repository/PermissionRepository/Per
 import BankRepository from '../../data/repository/BankRepository/BankRepository';
 import AdditionalInformationRepository
   from '../../data/repository/AdditionalInformationRepository/AdditionalInformationRepository';
+import PersonAddressRepository from
+    '../../data/repository/PersonAddressRepository/PersonAddressRepository';
 
 export default class RepositoryModule {
 
@@ -92,5 +94,9 @@ export default class RepositoryModule {
 
   static additionalInformationRepository(): AdditionalInformationRepository {
     return getCustomRepository(AdditionalInformationRepository);
+  }
+
+  static personAddressRepository(): PersonAddressRepository {
+    return getCustomRepository(PersonAddressRepository);
   }
 }

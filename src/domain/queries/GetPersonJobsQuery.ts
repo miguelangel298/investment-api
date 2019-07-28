@@ -5,6 +5,7 @@ import IPersonJobRepository from '../../data/repository/PersonJobRepository/IPer
 export default interface GetPersonJobsQuery extends IQuery {
   personId: number;
 }
+
 /**
  * Get the list of job information of the person.
  * @param { GetPersonJobsQuery }

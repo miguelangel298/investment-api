@@ -11,6 +11,7 @@ import MunicipalityController from '../../presentation/controllers/MunicipalityC
 import PersonJobController from '../../presentation/controllers/PersonJobController';
 import AdditionalInformationController
   from '../../presentation/controllers/AdditionalInformationController';
+import PersonAddressController from '../../presentation/controllers/PersonAddressController';
 
 export default class ControllerModule {
 
@@ -56,5 +57,9 @@ export default class ControllerModule {
 
   static getAdditionalInformationController(): AdditionalInformationController {
     return new AdditionalInformationController(RepositoryModule.additionalInformationRepository());
+  }
+
+  static getPersonAddressController(): PersonAddressController {
+    return new PersonAddressController(RepositoryModule.personAddressRepository());
   }
 }
