@@ -57,7 +57,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "tslint-config-airbnb": "^5.11.1",
-    "typeorm": "0.2.14"
+    "typeorm": "0.2.25"
   },
   "devDependencies": {
     "@types/async": "^2.0.45",
