@@ -50,7 +50,7 @@
     "express-validator": "^4.3.0",
     "faker": "^4.1.0",
     "glob": "latest",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mssql": "^4.3.0",
     "nodemailer": "^4.4.1",
     "pg": "^7.9.0",
